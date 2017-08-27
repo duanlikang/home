@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>优速Max</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+	
+</head>
+<body>
+	<header id="header" >
+		<div class="nvbt iback mui-action-back" id="header-back"></div>
+		<div class="nvbt ifinish" id="header-finish" style="display:none">完成</div>
+		<div class="nvtt" id="svg-title">优速Max</div>
+		<div class="nvbt ihelp"></div>
+	</header>
+	<section>
+		<div class="reset-option"><button class="reset-btn" id="reset-btn">复原</button></div>
+	</section>
+	<section id="svg-section">
+		<div id="container">
+			<svg width="100%" height="100%" id="SVG">
+				<g id="svg-background" transform="translate(0,0) scale(1)"></g>
+				<g id="svg-g" width="100%" height="100%" transform="translate(0,0) scale(1) rotate(0 0,0)">
+				</g>
+				<g id="svg-point" transform="translate(0,0) scale(1)">
+					<g id="svg-roomtransform" transform="translate(0,0) scale(1)">
+					<circle id="svg-circle" cx="0" cy="0" r="3" fill="white"></circle>
+					</g>
+				</g>
+			</svg>
+			<div id="mask-container"></div>
+		</div>
+	</section>
+	<div class="mui-content edit-content" id="edit-content">
+		<!-- <section id="tabbar-with-addRoom" class="mui-control-content add-room">
+			<header class="add-room-header">
+				<div class="nvbt iback" id="hide-add-room"></div>
+				<div class="nvtt">画图</div>
+			</header>
+			<div class="room-type" id="add-room-type">
+				<div class="output-option" id="standard-room">
+					<div class="output-img"><img src="img/usu/standardRoom@3x.png" alt="标准房间" /></div>
+					<div class="output-title room-type-title">标准房间</div>
+					<div class="output-desc room-type-desc">使用编辑器自动生成标准房间</div>
+				</div>
+				<div class="output-option" id="arbitrary-room">
+					<div class="output-img"><img src="img/usu/arbitraryRoom@3x.png" alt="自由格式" /></div>
+					<div class="output-title room-type-title">自由格式</div>
+					<div class="output-desc room-type-desc">通过点击拐角来绘制一个房间</div>
+				</div>	
+			</div>
+			<div style="clear:both;margin-bottom: 20px;">
+		</section> -->
+		<section id="tabbar-with-addRoom" class="item-section new-room-section">
+			<header class="add-room-header">
+				<div class="nvbt iback" id="hide-add-roomCate"></div>
+				<div class="nvtt">新的房间</div>
+			</header>
+			<ul id="obj-room-list" class="new-room-ul" >
+				<li class="new-room-li" data-value="董事长室">
+					<span>董事长室</span>
+				</li>
+				<li class="new-room-li" data-value="总经理室">
+					<span>总经理室</span>
+				</li>
+				<li class="new-room-li" data-value="副总经理室">
+					<span>副总经理室</span>
+				</li>
+				<li class="new-room-li" data-value="主管室">
+					<span>主管室</span>
+				</li>
+				<li class="new-room-li" data-value="财务室">
+					<span>财务室</span>
+				</li>
+				<li class="new-room-li" data-value="职员室">
+					<span>职员室</span>
+				</li>
+				<li class="new-room-li" data-value="综合办公区">
+					<span>综合办公区</span>
+				</li>
+				<li class="new-room-li" data-value="会议室">
+					<span>会议室</span>
+				</li>
+				<li class="new-room-li" data-value="洽谈室">
+					<span>洽谈室</span>
+				</li>
+				<li class="new-room-li" data-value="活动室">
+					<span>活动室</span>
+				</li>
+				<li class="new-room-li" data-value="餐厅">
+					<span>餐厅</span>
+				</li>
+				<li class="new-room-li" data-value="休息室">
+					<span>休息室</span>
+				</li>
+				<li class="new-room-li" data-value="其他">
+					<span>其他</span>
+				</li>
+			</ul>
+		</section>
+		<section id="side-mask"><div id="edit-mask" class="edit-mask"></div></section>
+		<section id="tabbar-with-editRoom" class="edit-room">
+			<header class="edit-room-header">
+				<div class="nvbt " id="hide-edit-room"></div>
+				<div class="nvtt">编 辑</div>
+			</header>
+			<div class="edit-item" id="edit-item-content">
+				<div class="item-icon">
+				<div class="item-icon-img"><img src="img/usu/sofa.png" id="side-img-icon" alt="沙发" /></div><span id="side-img-name">长沙发</span></div>
+				<div class="item-desc">
+					<div class="item-desc-left">
+						<div class="item-info show-label">
+							<div class="item-label"><span>显示标签</span></div>
+							<div class="item-value"><span>从不</span><img src="img/usu/right.png" alt="" /></div>
+						</div>
+						<div class="item-info">
+							<div class="item-label"><span>长度</span></div>
+							<div class="item-value">
+								<div class="item-price-input">
+									<input  type="number" placeholder="0.00" style="color:#000" id="item-length-value"/>
+									<span class="item-price-label" style="color:#000">米</span>
+								</div>
+							</div>
+						</div>
+						<div class="item-info">
+							<div class="item-line"></div>
+							<div class="item-label"><span>宽度</span></div>
+							<div class="item-value">
+								<div class="item-price-input">
+									<input  type="number" disabled="true" placeholder="0.00" style="background:#f0f0f0;color:#000" id="item-width-value"/>
+									<span class="item-price-label" style="color:#000">米</span>
+								</div>
+							</div>
+						</div>
+						<div class="item-info">
+							<div class="item-line"></div>
+							<div class="item-label"><span>高度</span></div>
+							<div class="item-value"><span id="item-height-value">-</span><img src="img/usu/right.png" alt="" /></div>
+						</div>
+						<div class="item-info item-price">
+							<div class="item-label"><span>定价模式</span></div>
+							<div class="item-value"><span>同类物品</span><img src="img/usu/right.png" alt="" /></div>
+						</div>
+						<div class="item-info">
+							<div class="item-line"></div>
+							<div class="item-label"><span>价格</span></div>
+							<div class="item-value">
+								<div class="item-price-input">
+									<input  type="number" placeholder="0.00" id="item-price-value"/>
+									<span class="item-price-label">元</span>
+								</div>
+							</div>
+						</div>
+						<div class="item-info">
+							<div class="item-line"></div>
+							<div class="item-value"><span>可征税？</span>
+								<div class="mui-switch mui-switch-blue mui-active mui-switch-mini item-switch">
+									<div class="mui-switch-handle"></div>
+								</div>
+							</div>
+						</div>
+						<div class="item-info">
+							<button type="button" id="item-save-all" class="mui-btn item-add-price">保存信息</button>
+						</div>
+					</div>
+					<div class="item-desc-right">
+						<div class="item-text">
+							<textarea name="" placeholder="添加备注" id="item-text-value"></textarea>
+						</div>
+						<div class="item-img">
+							<img id="item-img-view" class="item-img-view" src="img/nopic.png" alt="" />
+							<button class="img-opt-add" id="img-opt-add">添加</button>
+							<button class="img-opt-del" id="img-opt-del">删除</button>
+							<button class="img-opt-edit" id="img-opt-edit">编辑</button>
+						</div>
+						
+					</div>
+					<div class="img-edit-panel" id="img-edit-panel">
+						<div class="img-edit-btn">
+							<button class="imgView-btn" id="camera-btn">拍照</button>
+							<button class="imgView-btn" id="gallery-btn">相册</button>
+						</div>
+						<div class="img-upload-list">
+							<ul id="files"><li>注：图片必须先上传才能编辑</li></ul>
+						</div>
+						<div class="item-upoload">
+							<button type="button" id="img-upload-btn" class="mui-btn item-add-price item-save-btn">上传图片</button>
+						</div>
+						<div class="img-view" id="img-view">
+							<div class="img-view-edit" id="img-view-edit">
+							</div>
+						</div>
+						<div class="item-save">
+							<button type="button" id="img-save-btn" class="mui-btn item-add-price item-save-btn">保存图片</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		<section id="tabbar-with-addItem" class="item-section">
+			<header class="add-room-header">
+				<div class="nvbt iback" id="hide-add-item"></div>
+				<div class="nvtt">新的对象</div>
+			</header>
+			<div class="obj-list">
+				<ul id="obj-list">
+					<li class="obj-item obj-list-a" data-target="bed">
+						<div class="obj-item-img"><img src="data/icon/bed/双人床1800x2000a.png" alt="床"/></div>
+						<div class="obj-item-name"><span>床</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="chair">
+						<div class="obj-item-img"><img src="data/icon/chair/450x450a.png" alt="椅子" /></div>
+						<div class="obj-item-name"><span>椅子</span></div>
+					</li>
+					
+					<li class="obj-item obj-list-a" data-target="workdesk">
+						<div class="obj-item-img"><img src="data/icon/workdesk/办公桌2400x2200a.png" alt="工作桌" /></div>
+						<div class="obj-item-name"><span>办公桌</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="sofa">
+						<div class="obj-item-img"><img src="data/icon/sofa/沙发单人890x850a.png" alt="沙发" /></div>
+						<div class="obj-item-name"><span>沙发</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="frontdesk">
+						<div class="obj-item-img"><img src="data/icon/frontdesk/前台2400x900a.png" alt="前台" /></div>
+						<div class="obj-item-name"><span>前台</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="meetdesk">
+						<div class="obj-item-img"><img src="data/icon/meetdesk/2200x1400 8人a.png" alt="会议桌" /></div>
+						<div class="obj-item-name"><span>会议桌</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="workstation">
+						<div class="obj-item-img"><img src="data/icon/workstation/工位2800x2800a.png" alt="工位" /></div>
+						<div class="obj-item-name"><span>工位</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="deskitem">
+						<div class="obj-item-img"><img src="data/icon/deskitem/花200x200a.png" alt="摆设" /></div>
+						<div class="obj-item-name"><span>摆设</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="other">
+						<div class="obj-item-img"><img src="data/icon/other/餐桌1600x1500a.png" alt="其他" /></div>
+						<div class="obj-item-name"><span>其他</span></div>
+					</li>
+					<li class="obj-item obj-list-a" data-target="wall">
+						<div class="obj-item-img"><img src="data/icon/wall/1000x160a.png" alt="隔断" /></div>
+						<div class="obj-item-name"><span>隔断</span></div>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section  id="tabbar-with-addItemCate" class="item-section">
+			<header class="add-room-header">
+				<div class="nvbt iback" id="hide-add-itemCate"></div>
+				<div class="nvtt">新的对象</div>
+			</header>
+			<div class="obj-list">
+				<ul id="itemDetail-list">
+					<li class="obj-item" data-target="sofaImg">
+						<div class="obj-item-img"><img src="img/usu/electric@3x.png" alt="" /></div>
+						<div class="obj-item-name"><span>电器</span></div>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section id="tabbar-with-bluetooth" class="item-section" style="left:40%;">
+			<header class="add-room-header">
+				<div class="nvbt iback" id="hide-add-bluetooth"></div>
+				<div class="nvtt">蓝牙设置</div>
+			</header>
+			<div class="button bluebooth-scan" id="scan">扫描设备</div>
+			<div  class="bluetooth-info" id="bluebooth-info">
+				<span > *点击 扫描设备 连接蓝牙</span>
+				<!--<button class="bluebooth-btn-opt" onclick="disconnect()" style="" id="disconnect">断开</button>
+				<button class="bluebooth-btn-opt" style="margin-right: 10%;display: none;" onclick="reconnect()" id="reconnect">重连</button>-->
+			</div>
+			<div class="button bluebooth-btn-opt"  style="margin-top: 10px;" id="clear-bluetooth">清除</div>
+			<div class="button bluebooth-btn-opt"  style="display: none;" id="disconnect">断开</div>
+			<div class="button bluebooth-btn-opt" style="display: none;" id="reconnect">重连</div>
+			<div id="bluetooth-list">
+				<ul id="plist" class="bluetooth-list">
+				</ul>
+			</div>
+			<div class="realtime-data">
+				<span id="realtime-num"></span>
+			</div>
+			<div class="bluetooth-input" id="bluetooth-input">
+				<input type="number" id="bluetooth-value"/>
+				<button class="bluetooth-submit button" id="bluetooth-submit">确定</button>
+			</div>
+		</section>
+		<section>
+			<div id="popover-wall" class="mui-popover">
+			  <ul class="mui-table-view">
+			    <li class="mui-table-view-cell"><input type="number" class="popover-input" id="popover-input" placeholder="输入长度，例：5.00"/></li>
+			    <li class="mui-table-view-cell"><a href="#tabbar-with-bluetooth" class="mui-tab-item bluebooth-btn-a">激光测距</a></li>
+			    <li class="mui-table-view-cell"><button class="popover-btn" id="popover-btn">确定</button></li>
+			  </ul>
+			</div>
+		</section>
+		<!-- <section>
+			<div id="popover-item" class="mui-popover">
+			  <ul class="mui-table-view">
+			    <li class="mui-table-view-cell popover-view-item-cell"><span class="popover-item-span">宽度：</span>
+			    	<input type="number" class="popover-input popover-item-input" id="popover-item-width"/></li>
+			    <li class="mui-table-view-cell popover-view-item-cell"><span class="popover-item-span">长度：</span>
+			    	<input type="number" class="popover-input popover-item-input" style="background:#ddd;color:#888" id="popover-item-height" readonly="true"/></li>
+			    <li class="mui-table-view-cell popover-view-item-cell"><span class="popover-item-span">角度：</span>
+			    	<input type="number" class="popover-input popover-item-input" id="popover-item-angle"/></li>
+			    <li class="mui-table-view-cell"><span class="popover-item-warning">注：等比例放缩，根据宽度计算</span></li>
+			    <li class="mui-table-view-cell"><button class="popover-btn" id="popover-item-btn">确定</button></li>
+			  </ul>
+			</div>
+		</section> -->
+		<section>
+			<div id="popover-copy" class="mui-popover">
+			  <ul class="mui-table-view">
+			    <li class="mui-table-view-cell popover-view-item-cell"><span class="popover-item-span">方向：</span>
+			    	<div class="popover-view-radio">
+			    		<input type="radio" name="direction" checked="checked" value="0"><span>水平</span>
+			    		<input type="radio" name="direction" value="1"><span>竖直</span>
+			    	</div></li>
+			    <li class="mui-table-view-cell"><span class="popover-item-span">数量：</span>
+			    	<input type="number" class="popover-input popover-item-input" placeholder="数字，例：2" id="popover-item-line"/></li>
+			    <li class="mui-table-view-cell popover-view-item-cell"><span class="popover-item-span">间距：</span>
+			    	<input type="number" class="popover-input popover-item-input" placeholder="例：0.10 (米)" id="popover-item-dis"/></li>
+			   
+			    <li class="mui-table-view-cell"><button class="popover-btn" id="popover-item-copy-btn">确定</button></li>
+			  </ul>
+			</div>
+		</section>
+		<section>
+			<div id="rotate-btn-mask" class="rotate-mask" style="z-index:10000;">
+				<div id="rotate-mask-info" class="rotate-mask-info">
+					提示：滑动右侧滑块即可旋转房间
+				</div>	
+				<div class="rotate-panel">
+					<svg id="svg-angle" width="200" height="400">
+ 					</svg>
+				</div>
+				<div class="rotate-turn">
+					<button class="rotate-turn-btn" id="turn-btn">&nbsp;翻转</button>
+				</div>
+				<button id="rotate-mask-close" class="rotate-mask-close">完成</button>
+			</div>
+		</section>
+		<section id="wall-mask">
+			<div class="rotate-mask" style="background:rgba(0,0,0,0.1)"></div>
+		</section>
+		<section id="window-mask">
+			<div id="" class="rotate-mask"></div>
+		</section>
+		
+		<!-- PC图片 -->
+		<div style="display:none">
+			<form id="upFile" action="http://localhost:8080/usu/picture/upload" enctype="multipart/form-data" method="post">
+			<input type="file" name="uploadkey1" id="uploadkey1">
+			<input type="hidden" name="viewWidth" id="up-width">
+			<input type="hidden" name="viewHeight" id="up-height">
+			<input type="hidden" name="pictureId" id="up-projectId">
+		</form></div>
+	</div>
+	<footer id="footer" class="mui-bar footer" >
+		<ul class="footer-ul" id="footer-ul">
+			<li class="footer-list" id="addRoom">
+				<div class="footer-img">
+					<img class="footer-normal" src="img/usu/addRoom-@3x.png" alt="" />
+				</div>
+				<div class="footer-text">
+					<span>添加房间</span>
+				</div>
+			</li>
+		</ul>
+	</footer>
+	<!-- <script type="text/javascript" src="js/pluginbluetooth.js"></script> -->
+	<script type="text/javascript" src="js/hammer.min.js"></script>
+	<script type="text/javascript" src="js/propagating.js"></script>
+	<script type="text/javascript" src="js/jquery.Jcrop.min.js"></script>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="model/util.js"></script>
+	<script type="text/javascript" src="data/svgData.js"></script>
+	<script type="text/javascript" src="model/room.js"></script>
+	<script type="text/javascript" src="model/bluetooth.js"></script>
+	<script type="text/javascript" src="model/mainFrame.js"></script>
+	<script type="text/javascript" src="js/jquery.form.js"></script>
+	<script type="text/javascript" src="js/box.js"></script>
+	<script type="text/javascript" charset="UTF-8">
+		var main = new MainFrame();
+		var lightBox = new LightBox();
+    </script>
+</body>
+</html>

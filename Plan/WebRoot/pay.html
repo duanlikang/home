@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>支付</title>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+    	<script src="js/mui.min.js"></script>
+   	 	<link href="css/mui.min.css" rel="stylesheet"/>
+   	 	<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+		<link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8"/>
+		<link rel="stylesheet" href="css/light.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<header id="header">
+			<div id="back" class="nvbt iback mui-action-back"></div>
+			<div class="nvtt"><span class="head-title">Usu</span></div>
+			<div class="nvuser"></div>
+			<div class="nvuser ihelp"></div>
+		</header>
+		<div class="mui-content">
+			<div class="pay-panel" id="pay-list">
+				<div class="pay-list">
+					<label for="">开通会员</label><button class="pay-btn" data-number="0.01">360元</button>
+				</div>
+				<div class="pay-list">
+					<label for="">智能激光测距</label><button class="pay-btn" data-number="0.01">460元</button>
+				</div>
+				<div class="pay-list pay-has-img">
+					<label for="">家具包</label><button class="pay-btn" data-number="0.01">XXX元</button>
+					<div class="pay-img-list">
+					<img src="" alt="" class="pay-img"/>
+					<img src="" alt="" class="pay-img"/>
+					<img src="" alt="" class="pay-img"/>
+					</div>
+				</div>
+				<div class="pay-list pay-has-img">
+					<label for="">家具包</label><button class="pay-btn" data-number="0.1">XXX元</button>
+					<div class="pay-img-list">
+					<img src="" alt="" class="pay-img"/>
+					<img src="" alt="" class="pay-img"/>
+					<img src="" alt="" class="pay-img"/>
+					</div>
+				</div>	
+				<div id="dcontent" class="dcontent">
+				</div>
+			</div>
+			<div id="output">
+			Payment模块管理支付功能，可通过js调用第三方支付服务。通过plus.payment可获取支付管理对象。
+		</div>
+		</div>
+
+		<script>
+		
+			var old_back = mui.back;
+			mui.back = function(){
+			  var btn = ["确定","取消"];
+			  mui.confirm('确认关闭当前窗口？','优速Max',btn,function(e){
+			    if(e.index==0){
+			    	//执行mui封装好的窗口关闭逻辑；
+			    	old_back();
+			    }
+			  });
+			}
+			
+			var pays={};
+			function plusReady(){
+				// 获取支付通道
+				plus.payment.getChannels(function(channels){
+					var content=document.getElementById('dcontent');
+					var info=document.getElementById("info");
+					var txt="支付通道信息：";
+					for(var i in channels){
+						var channel=channels[i];
+						pays[channel.id]=channel;
+						txt += "id:"+channel.id+", ";
+						txt += "description:"+channel.description+", ";
+						txt += "serviceReady:"+channel.serviceReady+"； ";
+						var de=document.createElement('div');
+						de.setAttribute('class','button');
+						de.setAttribute('onclick','pay(this.id)');
+						de.id=channel.id;
+						de.innerText=channel.description+"支付";
+						content.appendChild(de);
+						checkServices(channel);
+					}
+					info.innerText=txt;
+				},function(e){
+					document.getElementById("output").innerHTML="获取支付通道失败："+e.message;
+				});
+			}
+			document.addEventListener('plusready',plusReady,false);
+			// 检测是否安装支付服务
+			function checkServices(pc){
+				if(!pc.serviceReady){
+					var txt=null;
+					switch(pc.id){
+						case "alipay":
+						txt="检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？";
+						break;
+						default:
+						txt="系统未安装“"+pc.description+"”服务，无法完成支付，是否立即安装？";
+						break;
+					}
+					plus.nativeUI.confirm(txt,function(e){
+						if(e.index==0){
+							pc.installService();
+						}
+					},pc.description);
+				}
+			}
+			
+			var w=null;
+			var PAYSERVER='http://101.200.179.69/payByPhone.php/?payid=';
+			// 支付
+			function pay(id){
+				if(w){return;}//检查是否请求订单中
+				if(id==='appleiap'){
+					outSet("应用内支付");
+					clicked('payment_iap.html');
+					return;
+				}
+				document.getElementById("output").innerHTML="----- 请求支付 -----";
+				var url=PAYSERVER;
+				if(id=='alipay'||id=='wxpay'){
+					url+=id;
+				}else{
+					plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");
+					return;
+				}
+				var appid=plus.runtime.appid;
+				if(navigator.userAgent.indexOf('StreamApp')>=0){
+					appid='Stream';
+				}
+				url+='&appid='+appid+'&total=';
+				
+				w=plus.nativeUI.showWaiting();
+				// 请求支付订单
+				var amount = 0.01;
+				var xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+					switch(xhr.readyState){
+						case 4:
+						w.close();w=null;
+						if(xhr.status==200){
+							document.getElementById("output").innerHTML+="----- 请求订单成功 -----";
+							document.getElementById("output").innerHTML+= xhr.responseText ;
+							var order=xhr.responseText;
+							plus.payment.request(pays[id],order,function(result){
+								document.getElementById("output").innerHTML="----- 支付成功 -----";
+								document.getElementById("output").innerHTML+=JSON.stringify(result);
+								plus.nativeUI.alert("支付成功：感谢你的支持，我们会继续努力完善产品。",function(){
+									back();
+								},"捐赠");
+							},function(e){
+								document.getElementById("output").innerHTML="----- 支付失败 -----";
+								document.getElementById("output").innerHTML+="["+e.code+"]："+e.message;
+								plus.nativeUI.alert("更多错误信息请参考支付(Payment)规范文档：http://www.html5plus.org/#specification#/specification/Payment.html",null,"支付失败："+e.code);
+							});
+						}else{
+							document.getElementById("output").innerHTML+="----- 请求订单失败 -----";
+							document.getElementById("output").innerHTML+= xhr.status;
+							plus.nativeUI.alert("获取订单信息失败！",null,"捐赠");
+						}
+						break;
+						default:
+						break;
+					}
+				}
+				console.log(url)
+				xhr.open('GET',url+amount);
+				document.getElementById("output").innerHTML="请求支付订单："+url+amount;
+				xhr.send();
+			}
+		</script>
+	</body>
+</html>
