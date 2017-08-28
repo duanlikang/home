@@ -1,0 +1,719 @@
+{
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "H54EF1C24",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "USU",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "1.0.0",/*应用版本名称*/
+		"code": "83"
+	},
+	"description": "",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": "http://www.dcloud.io"
+	},
+	"permissions": {
+
+		"Audio": {
+			"description": "访问麦克风"
+		},
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Camera": {
+			"description": "访问摄像头"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+
+		"Device": {
+			"description": "访问设备信息"
+		},
+		"Downloader": {
+			"description": "文件下载管理"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+		"Geolocation": {
+			"description": "访问位置信息"
+		},
+		"Invocation": {
+			"description": "使用Native.js能力"
+		},
+
+		"Orientation": {},
+		"Proximity": {
+			"description": "访问距离感应器"
+		},
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+
+		"Uploader": {
+			"description": "管理文件上传任务"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+
+		"Maps": {
+			"description": "管理地图插件"
+		},
+
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},
+		"NativeObj": {
+			"description": "原生对象"
+		},
+		"Payment": {
+			"description": "管理支付插件"
+		}
+	},
+	"plus": {
+		"splashscreen": {
+			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": true
+		},
+		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"plugins": {
+				"payment": {
+					"alipay": {
+						"description": "阿里支付",
+						"scheme": ""
+					},
+					"weixin": {
+						"description": "微信支付",
+						"appid": "wx1e268ec73f7964a1"
+					}
+				}
+			},
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
+			},
+			"orientation": [
+				"landscape-primary",
+				"landscape-secondary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					"auto": "", /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "unpackage/res/icons/57x57.png",/*iPhone普通屏幕程序图标，分辨率：57x57*/
+						"retina": "unpackage/res/icons/114x114.png",/*iPhone高分屏程序图标，分辨率：114x114*/
+						"retina7": "unpackage/res/icons/120x120.png",/*iPhone iOS7高分屏程序图标，分辨率：120x120*/
+						"spotlight-normal": "unpackage/res/icons/29x29.png", /*iPhone Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "unpackage/res/icons/58x58.png", /*iPhone高分屏Spotlight搜索程序图标，分辨率：58x58*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png", /*iPhone设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png",
+						"retina8": "unpackage/res/icons/180x180.png",
+						"settings-retina8": "unpackage/res/icons/87x87.png"
+					},
+					"ipad": {
+						"normal": "unpackage/res/icons/72x72.png", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "unpackage/res/icons/144x144.png", /*iPad高分屏程序图标，分辨率：144x144*/
+						"normal7": "unpackage/res/icons/76x76.png", /*iPad iOS7程序图标，分辨率：76x76*/
+						"retina7": "unpackage/res/icons/152x152.png", /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "unpackage/res/icons/50x50.png", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "unpackage/res/icons/100x100.png", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						"spotlight-normal7": "unpackage/res/icons/40x40.png",/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png",/*iPad设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png"
+					}
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
+						"retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": ""
+					},
+					"ipad": {
+						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": ""
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": ""
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"href": "index.html",
+				"resources": [
+					"model/user.js",
+					"img/usu/defHead@3x.png",
+					"js/md5.js",
+					"img/usu/ic_search@2x.png",
+					"img/usu/ic_xx@2x.png",
+					"css/common.css",
+					"img/usu/Setting@2x.png",
+					"img/usu/defHead@2x.png",
+					"img/usu/help@2x.png",
+					"img/usu/add@3x.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"img/loading.gif",
+					"model/index.js",
+					"model/util.js",
+					"css/index.css",
+					"img/usu/refresh.png",
+					"img/usu/ic_icl@2x.png",
+					"js/jquery.min.js",
+					"img/usu/close.png"
+				],
+				"refer": [
+					"index.html",
+					"project.html"
+				],
+				"priority": 0
+			},
+			"project.html": {
+				"href": "project.html",
+				"resources": [
+					"img/usu/network@3x.png",
+					"img/usu/dollar.svg",
+					"img/usu/buy@2x.png",
+					"js/md5.js",
+					"img/usu/statistics.svg",
+					"img/usu/sofa.png",
+					"img/usu/$@3x.png",
+					"css/common.css",
+					"img/usu/Setting@2x.png",
+					"img/usu/defHead@2x.png",
+					"img/usu/help@2x.png",
+					"img/usu/add@3x.png",
+					"js/mui.min.js",
+					"js/box.js",
+					"img/usu/position.svg",
+					"img/usu/edit.svg",
+					"model/project.js",
+					"img/loading.gif",
+					"css/mui.css",
+					"img/usu/output.svg",
+					"data/svgData.js",
+					"data/meetdesk/800.png",
+					"data/meetdesk/2800x1400.png",
+					"data/workdesk/2560x2000.png",
+					"data/sofaImg.png",
+					"data/bench/3210x1070.png",
+					"data/meetdesk/2800.png",
+					"data/meetdesk/2800x1200.png",
+					"data/workdesk/2000x1680.png",
+					"data/other/371x400.png",
+					"data/other/2000x1000.png",
+					"data/meetdesk/2000x1000.png",
+					"data/workdesk/1400x700.png",
+					"data/bench/2550x876.png",
+					"data/meetdesk/900.png",
+					"data/workdesk/2000x1679.png",
+					"data/meetdesk/3200x1200.png",
+					"data/meetdesk/4800x1400.png",
+					"data/meetdesk/6000x2400.png",
+					"data/other/590x155.png",
+					"data/meetdesk/2400x1200.png",
+					"data/workdesk/1800x1800.png",
+					"data/bench/2000x1000.png",
+					"data/bench/3200x885.png",
+					"data/workdesk/2200x2050.png",
+					"data/other/1100x1629.png",
+					"data/meetdesk/3200x1400.png",
+					"data/workdesk/2200x2000.png",
+					"data/meetdesk/4200x2100.png",
+					"data/meetdesk/2800x2000.png",
+					"data/other/479x616.png",
+					"data/workdesk/1700x1800.png",
+					"data/bench/2400x1800.png",
+					"data/meetdesk/4500x1500.png",
+					"img/usu/file@3x.png",
+					"model/util.js",
+					"css/light.css",
+					"img/loading.gif",
+					"img/close.png",
+					"js/jquery.min.js",
+					"css/style.css"
+				],
+				"refer": [
+					"share.html",
+					"index.html",
+					"project.html",
+					"edit.html"
+				],
+				"priority": 1
+			},
+			"share.html": {
+				"href": "share.html",
+				"resources": [
+					"css/share.css",
+					"model/side.js",
+					"img/loading.gif",
+					"model/room.js",
+					"js/md5.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"img/usu/Setting@2x.png",
+					"img/usu/defHead@2x.png",
+					"img/usu/help@2x.png",
+					"img/usu/add@3x.png",
+					"css/edit.css",
+					"model/mainFrame.js",
+					"model/bluetoothRoom.js",
+					"model/arbiRoom.js",
+					"js/propagating.js",
+					"css/mui.min.css",
+					"js/jquery.Jcrop.min.js",
+					"model/roomPoints.js",
+					"data/svgData.js",
+					"data/meetdesk/800.png",
+					"data/meetdesk/2800x1400.png",
+					"data/workdesk/2560x2000.png",
+					"data/sofaImg.png",
+					"data/bench/3210x1070.png",
+					"data/meetdesk/2800.png",
+					"data/meetdesk/2800x1200.png",
+					"data/workdesk/2000x1680.png",
+					"data/other/371x400.png",
+					"data/other/2000x1000.png",
+					"data/meetdesk/2000x1000.png",
+					"data/workdesk/1400x700.png",
+					"data/bench/2550x876.png",
+					"data/meetdesk/900.png",
+					"data/workdesk/2000x1679.png",
+					"data/meetdesk/3200x1200.png",
+					"data/meetdesk/4800x1400.png",
+					"data/meetdesk/6000x2400.png",
+					"data/other/590x155.png",
+					"data/meetdesk/2400x1200.png",
+					"data/workdesk/1800x1800.png",
+					"data/bench/2000x1000.png",
+					"data/bench/3200x885.png",
+					"data/workdesk/2200x2050.png",
+					"data/other/1100x1629.png",
+					"data/meetdesk/3200x1400.png",
+					"data/workdesk/2200x2000.png",
+					"data/meetdesk/4200x2100.png",
+					"data/meetdesk/2800x2000.png",
+					"data/other/479x616.png",
+					"data/workdesk/1700x1800.png",
+					"data/bench/2400x1800.png",
+					"data/meetdesk/4500x1500.png",
+					"model/item.js",
+					"model/wallWindow.js",
+					"model/arbitraryRoom.js",
+					"model/util.js",
+					"js/jquery.min.js",
+					"css/style.css",
+					"js/hammer.js",
+					"css/jquery.Jcrop.css"
+				],
+				"refer": [
+					"project.html"
+				],
+				"priority": 1
+			},
+			"edit.html": {
+				"href": "edit.html",
+				"resources": [
+					"img/usu/standardRoom@3x.png",
+					"img/usu/sight@3x.png",
+					"css/common.css",
+					"img/usu/Setting@2x.png",
+					"img/usu/defHead@2x.png",
+					"img/usu/help@2x.png",
+					"img/usu/add@3x.png",
+					"model/mainFrame.js",
+					"img/usu/bluetoothRoom@3x.png",
+					"data/svgData.js",
+					"data/meetdesk/800.png",
+					"data/meetdesk/2800x1400.png",
+					"data/workdesk/2560x2000.png",
+					"data/sofaImg.png",
+					"data/bench/3210x1070.png",
+					"data/meetdesk/2800.png",
+					"data/meetdesk/2800x1200.png",
+					"data/workdesk/2000x1680.png",
+					"data/other/371x400.png",
+					"data/other/2000x1000.png",
+					"data/meetdesk/2000x1000.png",
+					"data/workdesk/1400x700.png",
+					"data/bench/2550x876.png",
+					"data/meetdesk/900.png",
+					"data/workdesk/2000x1679.png",
+					"data/meetdesk/3200x1200.png",
+					"data/meetdesk/4800x1400.png",
+					"data/meetdesk/6000x2400.png",
+					"data/other/590x155.png",
+					"data/meetdesk/2400x1200.png",
+					"data/workdesk/1800x1800.png",
+					"data/bench/2000x1000.png",
+					"data/bench/3200x885.png",
+					"data/workdesk/2200x2050.png",
+					"data/other/1100x1629.png",
+					"data/meetdesk/3200x1400.png",
+					"data/workdesk/2200x2000.png",
+					"data/meetdesk/4200x2100.png",
+					"data/meetdesk/2800x2000.png",
+					"data/other/479x616.png",
+					"data/workdesk/1700x1800.png",
+					"data/bench/2400x1800.png",
+					"data/meetdesk/4500x1500.png",
+					"model/item.js",
+					"model/wallWindow.js",
+					"model/arbitraryRoom.js",
+					"model/util.js",
+					"css/light.css",
+					"img/loading.gif",
+					"img/close.png",
+					"js/jquery.min.js",
+					"img/usu/addRoom-@3x.png",
+					"img/usu/right.png",
+					"js/hammer.js",
+					"img/usu/electric@3x.png",
+					"model/side.js",
+					"img/loading.gif",
+					"model/room.js",
+					"js/md5.js",
+					"img/usu/sofa.png",
+					"js/mui.min.js",
+					"css/edit.css",
+					"js/box.js",
+					"model/bluetoothRoom.js",
+					"img/usu/arbitraryRoom@3x.png",
+					"js/propagating.js",
+					"css/mui.min.css",
+					"js/jquery.Jcrop.min.js",
+					"model/roomPoints.js",
+					"img/usu/furniture@3x.png",
+					"img/usu/door@3x.png",
+					"js/jquery.form.js",
+					"img/usu/kitchen@3x.png",
+					"css/style.css",
+					"css/jquery.Jcrop.css"
+				],
+				"refer": [
+					"index.html",
+					"project.html"
+				],
+				"priority": 4
+			}
+		},
+		"idle": {
+			"resources": [
+				"img/usu/删除icon.png",
+				"data/new/2000乘1680.png",
+				"data/会议桌/2800.png",
+				"img/usu/门@2x.png",
+				"img/usu/addItem-@3x.png",
+				"img/usu/输出-.png",
+				"data/new/Drawing6.svg",
+				"img/usu/rotate.png",
+				"data/会议桌/2800乘2000.png",
+				"data/会议桌/900.png",
+				"data/new/Drawing24.svg",
+				"img/usu/ic_i@2x.png",
+				"data/new/Drawing46.svg",
+				"data/new/Drawing37.svg",
+				"data/new/Drawing25.svg",
+				"img/usu/正方形房间@2x.png",
+				"data/new/Drawing41.svg",
+				"data/前台/2550乘876.png",
+				"data/new/Drawing19.svg",
+				"data/new/Drawing51.svg",
+				"img/usu/数据统计.png",
+				"img/usu/ic_zd.png",
+				"img/usu/景观-.png",
+				"data/new/Drawing39.svg",
+				"data/其他/371乘400.png",
+				"img/usu/position@2x.png",
+				"data/会议桌/2800乘1400 (2).png",
+				"img/usu/注释@2x.png",
+				"data/new/Drawing33.svg",
+				"data/new/Drawing20.svg",
+				"img/usu/Facebook@2x.png",
+				"data/会议桌/2000乘1000.png",
+				"img/usu/bluetooth.png",
+				"data/new/Drawing35.svg",
+				"img/usu/自由格式@2x.png",
+				"data/new/Drawing21.svg",
+				"img/usu/添加房间-@2x.png",
+				"img/usu/编辑--@2x.png",
+				"img/usu/+@2x.png",
+				"img/usu/Facebook@3x.png",
+				"img/usu/+.png",
+				"img/usu/lock.png",
+				"img/usu/网络.png",
+				"img/usu/delete-@3x.png",
+				"data/new/Drawing50.svg",
+				"img/usu/智能模式@2x.png",
+				"img/usu/画图icon@2x.png",
+				"img/usu/上传@3x.png",
+				"img/usu/$@2x.png",
+				"img/usu/正方形房间.png",
+				"data/new/Drawing12.svg",
+				"css/Jcrop.gif",
+				"img/usu/help@3x.png",
+				"img/usu/景观-@2x.png",
+				"data/前台/3210乘1070.png",
+				"img/usu/icon+@2x.png",
+				"img/usu/statistics_128.png",
+				"img/usu/家具@2x.png",
+				"data/new/Drawing11.svg",
+				"data/new/Drawing26.svg",
+				"img/usu/上传.png",
+				"img/usu/自由格式.png",
+				"data/new/Drawing29.svg",
+				"img/usu/客户信息-@3x.png",
+				"img/usu/Setting.png",
+				"img/usu/add.png",
+				"data/new/Drawing28.svg",
+				"data/workdesk/2000乘1679.png",
+				"data/new/Drawing30.svg",
+				"img/usu/twitter@3x.png",
+				"img/usu/价格列表-@2x.png",
+				"data/new/Drawing42.svg",
+				"img/usu/copy-@3x.png",
+				"img/usu/编辑icon@3x.png",
+				"img/usu/文件@2x.png",
+				"img/usu/添加icon@2x.png",
+				"img/usu/客户信息-@2x.png",
+				"data/new/Drawing2.svg",
+				"img/usu/添加对象-.png",
+				"img/usu/statistics@3x.png",
+				"img/usu/ic_zd@2x.png",
+				"img/usu/厨房橱柜@2x.png",
+				"img/usu/价格列表-.png",
+				"img/usu/删除-.png",
+				"img/usu/edit-@2x.png",
+				"data/new/Drawing27.svg",
+				"img/usu/删除-@2x.png",
+				"data/会议桌/2800乘1200.png",
+				"data/会议桌/3200乘1400.png",
+				"data/其他/479乘616.png",
+				"data/new/Drawing9.svg",
+				"img/usu/$.png",
+				"data/new/2000x1680.png",
+				"img/usu/办公室.png",
+				"data/workdesk/2560乘2000.png",
+				"data/new/Drawing22.svg",
+				"data/会议桌/2400乘1200.png",
+				"img/usu/upload.png",
+				"img/usu/copy.svg",
+				"img/usu/编辑-.png",
+				"model/new_file.js",
+				"data/会议桌/6000乘2400.png",
+				"img/usu/ic_xx@3x.png",
+				"img/usu/help.png",
+				"img/usu/Facebook.png",
+				"img/usu/公司信息-@2x.png",
+				"img/usu/地板@2x.png",
+				"img/usu/注释@3x.png",
+				"img/usu/电器.png",
+				"img/usu/output@2x.png",
+				"data/new/2560乘2000.png",
+				"data/会议桌/800.png",
+				"img/usu/注释.png",
+				"img/usu/delete.svg",
+				"img/usu/默认头像.png",
+				"img/usu/删除icon@2x.png",
+				"img/usu/办公室@3x.png",
+				"img/usu/地板.png",
+				"data/会议桌/4800乘1400.png",
+				"data/会议桌/3200乘1200.png",
+				"img/usu/position@3x.png",
+				"img/usu/twitter@2x.png",
+				"img/usu/厨房橱柜.png",
+				"img/usu/购买.png",
+				"data/会议桌/4500乘1500.png",
+				"data/new/Drawing49.svg",
+				"img/usu/地板@3x.png",
+				"js/mui.js",
+				"img/usu/ic_search.png",
+				"canvg.html",
+				"img/usu/ic_zd@3x.png",
+				"data/new/Drawing23.svg",
+				"data/new/Drawing47.svg",
+				"data/new/Drawing34.svg",
+				"data/new/Drawing32.svg",
+				"data/new/1700x1800.png",
+				"data/workdesk/2200乘2000.png",
+				"img/usu/价格列表-@3x.png",
+				"data/new/Drawing38.svg",
+				"js/rgbcolor.js",
+				"data/new/Drawing45.svg",
+				"img/usu/家具.png",
+				"img/usu/Setting@3x.png",
+				"data/new/Drawing3.svg",
+				"img/usu/客户信息-.png",
+				"img/usu/icon1@3x.png",
+				"img/usu/output@3x.png",
+				"css/fonts/mui.ttf",
+				"data/前台/2400乘1800.png",
+				"img/usu/statistics@2x.png",
+				"img/usu/画图icon@3x.png",
+				"data/new/Drawing5.svg",
+				"data/workdesk/2000乘1680.png",
+				"img/usu/estimate@3x.png",
+				"img/usu/ic_icl@3x.png",
+				"img/usu/edit-@3x.png",
+				"data/前台/3200乘885.png",
+				"img/usu/复原icon@3x.png",
+				"img/usu/添加房间-.png",
+				"data/new/Drawing36.svg",
+				"img/usu/合并房间-@2x.png",
+				"img/usu/添加对象-@2x.png",
+				"img/usu/statistics.png",
+				"img/usu/twitter.png",
+				"img/usu/icon1@2x.png",
+				"img/usu/复原icon@2x.png",
+				"img/60x60.gif",
+				"js/canvg.js",
+				"img/usu/电器@2x.png",
+				"img/usu/添加icon@3x.png",
+				"img/usu/估算.png",
+				"img/usu/办公室@2x.png",
+				"data/new/Drawing53.svg",
+				"img/usu/output-@2x.png",
+				"data/new/1800x1800.png",
+				"img/usu/addWall.png",
+				"img/usu/save.png",
+				"data/new/Drawing54.svg",
+				"data/会议桌/4200乘2100.png",
+				"img/usu/输出.png",
+				"data/new/Drawing10.svg",
+				"data/new/Drawing8.svg",
+				"data/new/Drawing16.svg",
+				"img/usu/编辑--@3x.png",
+				"img/usu/merge-@3x.png",
+				"img/usu/文件.png",
+				"img/usu/输出-@3x.png",
+				"img/usu/复制-.png",
+				"img/usu/ic_icl.png",
+				"img/usu/estimate@2x.png",
+				"js/pluginbluetooth.js",
+				"img/usu/ic_i.png",
+				"img/usu/公司信息-.png",
+				"img/usu/buy@3x.png",
+				"img/usu/位置.png",
+				"data/new/Drawing13.svg",
+				"data/new/2560x2000.png",
+				"img/usu/ic_search@3x.png",
+				"img/usu/复原icon.png",
+				"data/new/Drawing18.svg",
+				"img/usu/智能模式.png",
+				"data/其他/1100乘1629.png",
+				"img/usu/网络@2x.png",
+				"img/usu/编辑icon@2x.png",
+				"img/usu/复制-@2x.png",
+				"img/usu/编辑icon.png",
+				"img/usu/编辑--.png",
+				"img/usu/添加icon.png",
+				"data/new/Drawing43.svg",
+				"img/usu/画图icon.png",
+				"img/usu/公司信息-@3x.png",
+				"data/其他/2000乘1000 (2).png",
+				"data/new/Drawing52.svg",
+				"img/usu/合并房间-.png",
+				"img/usu/ic_xx.png",
+				"img/usu/icon1.png",
+				"data/new/Drawing7.svg",
+				"data/其他/590乘155.png",
+				"img/usu/门.png",
+				"img/usu/icon+.png",
+				"data/前台/2000乘1000 (3).png",
+				"img/usu/ic_i@3x.png",
+				"data/new/Drawing40.svg",
+				"data/new/1700乘1800.png",
+				"data/workdesk/2200乘2050.png",
+				"img/usu/icon+@3x.png",
+				"img/usu/删除icon@3x.png",
+				"data/new/1800乘1800.png"
+			]
+		}
+	},
+	"fullscreen": false
+}
