@@ -69,7 +69,7 @@ public class AdminController extends Controller {
 	/**
 	 * @api {GET} /salemanAdmin /salemanAdmin
 	 * @apiName salemanAdmin
-	 * @apiGroup admin.salemanAdmin
+	 * @apiGroup admin.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 推广人主页
 	 * @apiPermission 管理员
@@ -93,7 +93,7 @@ public class AdminController extends Controller {
 	/**
 	 * @api {GET} /userAdmin /userAdmin
 	 * @apiName userAdmin
-	 * @apiGroup admin.userAdmin
+	 * @apiGroup admin.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 用户管理
 	 * @apiPermission 管理员

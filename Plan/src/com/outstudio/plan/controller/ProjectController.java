@@ -26,7 +26,7 @@ public class ProjectController extends Controller {
 	/**
 	 * @api {GET} /create /create
 	 * @apiName create
-	 * @apiGroup project.create
+	 * @apiGroup project.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 创建项目
 	 * @apiPermission 用户
@@ -49,7 +49,7 @@ public class ProjectController extends Controller {
 	/**
 	 * @api {GET} /remove /remove
 	 * @apiName remove
-	 * @apiGroup project.remove
+	 * @apiGroup project.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 删除项目
 	 * @apiPermission 用户
@@ -70,7 +70,7 @@ public class ProjectController extends Controller {
 	/**
 	 * @api {GET} /visit /visit
 	 * @apiName visit
-	 * @apiGroup project.visit
+	 * @apiGroup project.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 查看项目
 	 * @apiPermission 用户
@@ -92,7 +92,7 @@ public class ProjectController extends Controller {
 	/**
 	 * @api {GET} /getAllProject /getAllProject
 	 * @apiName getAllProject
-	 * @apiGroup project.getAllProject
+	 * @apiGroup project.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 获取项目
 	 * @apiPermission 用户
@@ -136,7 +136,7 @@ public class ProjectController extends Controller {
 	/**
 	 * @api {GET} /sendProject /sendProject
 	 * @apiName sendProject
-	 * @apiGroup project.sendProject
+	 * @apiGroup project.send
 	 * @apiVersion 1.0.0
 	 * @apiDescription 发送项目
 	 * @apiPermission 用户
@@ -157,7 +157,7 @@ public class ProjectController extends Controller {
 	/**
 	 * @api {GET} /sendBriefProject /sendBriefProject
 	 * @apiName sendBriefProject
-	 * @apiGroup project.sendBriefProject
+	 * @apiGroup project.send
 	 * @apiVersion 1.0.0
 	 * @apiDescription 发送简要项目
 	 * @apiPermission 用户

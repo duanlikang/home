@@ -29,7 +29,7 @@ public class UserController extends Controller {
 	/**
 	 * @api {GET} /login /login
 	 * @apiName login
-	 * @apiGroup user.login
+	 * @apiGroup user.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 登陆
 	 * @apiPermission 用户
@@ -57,7 +57,7 @@ public class UserController extends Controller {
 	/**
 	 * @api {GET} /sendCheckCode /sendCheckCode
 	 * @apiName sendCheckCode
-	 * @apiGroup user.sendCheckCode
+	 * @apiGroup user.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 请求发送验证码
 	 * @apiPermission 用户
@@ -94,7 +94,7 @@ public class UserController extends Controller {
 	/**
 	 * @api {GET} /regist /regist
 	 * @apiName regist
-	 * @apiGroup user.regist
+	 * @apiGroup user.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 注册
 	 * @apiPermission 用户
@@ -134,7 +134,7 @@ public class UserController extends Controller {
 	/**
 	 * @api {GET} /findPwd /findPwd
 	 * @apiName findPwd
-	 * @apiGroup user.findPwd
+	 * @apiGroup user.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 找回密码
 	 * @apiPermission 用户
@@ -163,7 +163,7 @@ public class UserController extends Controller {
 	/**
 	 * @api {GET} /completeInfo /completeInfo
 	 * @apiName completeInfo
-	 * @apiGroup user.completeInfo
+	 * @apiGroup user.mgr
 	 * @apiVersion 1.0.0
 	 * @apiDescription 完善信息
 	 * @apiPermission 用户
