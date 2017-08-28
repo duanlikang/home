@@ -69,7 +69,7 @@
 					};
 					self.user.sendAjaxInfo.call(self, info, errorResult, 'json');
 				} else {
-					mui.alert("请先登录", "优速Max");
+					mui.alert("请先登录", "IHome");
 				}
 				return false;
 			};
@@ -80,7 +80,7 @@
 			var old_back = mui.back;
 			mui.back = function() {
 				var btn = ["确定", "取消"];
-				mui.confirm('确认关闭当前窗口？', '优速Max', btn, function(e) {
+				mui.confirm('确认关闭当前窗口？', 'IHome', btn, function(e) {
 					if(e.index == 0) {
 						//执行mui封装好的窗口关闭逻辑；
 						old_back();
@@ -143,7 +143,7 @@
 				};
 				this.user.sendAjaxInfo.call(this, info, this.isVIPResult, 'json');
 			} else {
-				mui.alert("请先登录", "优速Max");
+				mui.alert("请先登录", "IHome");
 			}
 		},
 		/**
@@ -165,7 +165,7 @@
 						break;
 				}
 			} else {
-				mui.alert("网络错误", "优速Max");
+				mui.alert("网络错误", "IHome");
 			}
 		},
 		getPayUserInfo: function() {
@@ -247,7 +247,7 @@
 			if(data) {
 				switch(data.info) {
 					case "success":
-						mui.alert("收货信息提交成功,感谢您购买我们的服务,请重新登录。", '优速Max', function() {
+						mui.alert("收货信息提交成功,感谢您购买我们的服务,请重新登录。", 'IHome', function() {
 							localStorage.removeItem("user");
 							self.payUserSection.addClass("hidden");
 							mui.openWindow({
@@ -256,7 +256,7 @@
 						});
 						break;
 					case "fail":
-						mui.alert(data.errorInfo, '优速Max', function() {
+						mui.alert(data.errorInfo, 'IHome', function() {
 							self.payUserSection.addClass("hidden");
 						});
 						break;
@@ -346,7 +346,7 @@
 								//如果仅仅是购买服务
 								if(self.data["type"] == 1) {
 
-									mui.alert("感谢您购买我们的服务，请重新登录.", '优速Max', function() {
+									mui.alert("感谢您购买我们的服务，请重新登录.", 'IHome', function() {
 										//重新登录,删除user
 										localStorage.removeItem("user");
 										mui.openWindow({
@@ -355,12 +355,12 @@
 									});
 
 								} else {
-									mui.alert("感谢您使用我们的服务！为了方便给您邮寄发票或者设备，请填写您的收件信息。", '优速Max', function() {
+									mui.alert("感谢您使用我们的服务！为了方便给您邮寄发票或者设备，请填写您的收件信息。", 'IHome', function() {
 										self.payUserSection.removeClass("hidden");
 									});
 								}
 
-							}, "优速Max");
+							}, "IHome");
 						}, function(e) {
 							plus.nativeUI.alert("支付失败", null, "优速");
 						});

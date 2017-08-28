@@ -34,7 +34,7 @@
 			this.oldBack = mui.back;
 			mui.back = function() {
 				var btn = ["确定", "取消"];
-				mui.confirm('确认关闭当前窗口？', '优速Max', btn, function(e) {
+				mui.confirm('确认关闭当前窗口？', 'IHome', btn, function(e) {
 					if(e.index == 0) {
 						//执行mui封装好的窗口关闭逻辑；
 						if(typeof plus == "undefined") {
@@ -120,7 +120,7 @@
             };
         self.User.sendAjaxInfo.call(self, info,errorResult, 'json');
         }else{
-          mui.alert("请先登录","优速Max");
+          mui.alert("请先登录","IHome");
         }
         return false;
     };
@@ -253,7 +253,7 @@
 			//    }
 			var btnArray = ['确定', '取消'];
 			/* mui.js仿IOS输入弹出框 */
-			mui.prompt('请输入您要接收的邮箱：', '', '优速Max', btnArray, function(e) {
+			mui.prompt('请输入您要接收的邮箱：', '', 'IHome', btnArray, function(e) {
 				if(e.index == 0) {
 					/* 先上传再发送邮箱 */
 					self.email = e.value;
@@ -280,7 +280,7 @@
 						}
 
 					} else {
-						mui.alert("请先登录", '优速Max', function() {
+						mui.alert("请先登录", 'IHome', function() {
 							self.oldBack();
 						});
 					}
@@ -298,7 +298,7 @@
 			if(data) {
 				switch(data.info) {
 					case "wrongToken":
-						mui.alert("登录已过期，请重新登录", '优速Max');
+						mui.alert("登录已过期，请重新登录", 'IHome');
 						self.storage.removeItem("user");
 						break;
 					case "success":
@@ -319,14 +319,14 @@
 							};
 							self.User.sendAjaxInfo.call(self, info, self.outputEmailResult, "json");
 						} else {
-							mui.alert("请先登录", '优速Max', function() {
+							mui.alert("请先登录", 'IHome', function() {
 								self.oldBack();
 							});
 						}
 						break;
 				}
 			} else {
-				mui.alert("网络出错，请重新尝试", '优速Max');
+				mui.alert("网络出错，请重新尝试", 'IHome');
 			}
 		},
 
@@ -339,7 +339,7 @@
 			if(data) {
 				switch(data.info) {
 					case "wrongToken":
-						mui.alert("登录已过期，请重新登录", '优速Max');
+						mui.alert("登录已过期，请重新登录", 'IHome');
 						self.storage.removeItem("user");
 						break;
 					case "success":
@@ -360,14 +360,14 @@
 							};
 							self.User.sendAjaxInfo.call(self, info, self.outputEmailResult, "json");
 						} else {
-							mui.alert("请先登录", '优速Max', function() {
+							mui.alert("请先登录", 'IHome', function() {
 								self.oldBack();
 							});
 						}
 						break;
 				}
 			} else {
-				mui.alert("网络出错，请重新尝试", '优速Max');
+				mui.alert("网络出错，请重新尝试", 'IHome');
 			}
 		},
 
@@ -380,18 +380,18 @@
 			if(data) {
 				switch(data.info) {
 					case "wrongToken":
-						mui.alert("登录已过期，请重新登录", '优速Max');
+						mui.alert("登录已过期，请重新登录", 'IHome');
 						self.storage.removeItem("user");
 						break;
 					case "fail":
-						mui.alert("获取文件失败", '优速Max');
+						mui.alert("获取文件失败", 'IHome');
 						break;
 					case "success":
-						mui.alert("发送成功，请使用邮箱查收", '优速Max');
+						mui.alert("发送成功，请使用邮箱查收", 'IHome');
 						break;
 				}
 			} else {
-				mui.alert("网络出错，请重新尝试", '优速Max');
+				mui.alert("网络出错，请重新尝试", 'IHome');
 			}
 		},
 

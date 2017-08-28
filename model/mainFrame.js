@@ -55,7 +55,7 @@
         };
         self.user.sendAjaxInfo.call(self, info, errorResult, 'json');
       } else {
-        mui.alert("请先登录", "优速Max");
+        mui.alert("请先登录", "IHome");
       }
       return false;
     };
@@ -77,7 +77,7 @@
       this.oldBack = mui.back;
       mui.back = function() {
         var btn = ["确定", "取消"];
-        mui.confirm('确认关闭当前窗口？', '优速Max', btn, function(e) {
+        mui.confirm('确认关闭当前窗口？', 'IHome', btn, function(e) {
           if (e.index == 0) {
             self.resetAllRoom();
             /* 防止再次编辑时保存后没有长度信息 */
@@ -634,7 +634,7 @@
       }
     },
     addArbitraryRoom: function() {
-      return mui.alert("暂不支持，敬请期待", "优速Max");
+      return mui.alert("暂不支持，敬请期待", "IHome");
     },
     deleteRoom: function() {
       for (var i = this.history.length - 1; i >= 0; i--) {
@@ -943,7 +943,7 @@
     resetAllRoom: function() {
       var self = this;
       var child, subChild, borderChild;
-      self.title.html("优速Max");
+      self.title.html("IHome");
       for (var index in self.roomDomList) {
         child = self.roomDomList[index].children;
         for (var i = 0, len = child.length; i < len; i++) {
@@ -1362,7 +1362,7 @@
       project.itemInfo = itemDataList;
       localStorage.setItem(this.id, JSON.stringify(project));
       if (isAlert) {
-        mui.alert("保存成功", '优速Max');
+        mui.alert("保存成功", 'IHome');
       }
     },
     /**

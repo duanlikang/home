@@ -1679,7 +1679,7 @@
 			 * 默认长度延伸方向为向下和向右
 			 */
 			if(isNaN(input) || !input || input <= 0 || input >= 40) {
-				mui.alert("请输入有效值", "优速Max");
+				mui.alert("请输入有效值", "IHome");
 				return false;
 			}
 
@@ -1739,7 +1739,7 @@
 						}
 					}
 					if(!isChangeable) {
-						return mui.alert("请解锁右侧墙壁", "优速Max");
+						return mui.alert("请解锁右侧墙壁", "IHome");
 					}
 					// distanceX = Math.abs(x2-x1);
 					distanceY = moveLenY - (y2 - y1); //相对于原来的位置移动的距离;
@@ -1780,7 +1780,7 @@
 						}
 					}
 					if(!isChangeable) {
-						return mui.alert("请解锁左侧墙壁", "优速Max");
+						return mui.alert("请解锁左侧墙壁", "IHome");
 					}
 					// distanceX = Math.abs(x2-x1);
 					distanceY = moveLenY - (y1 - y2); //相对于原来的位置移动的距离;
@@ -1822,7 +1822,7 @@
 						}
 					}
 					if(!isChangeable) {
-						return mui.alert("请解锁上侧墙壁", "优速Max");
+						return mui.alert("请解锁上侧墙壁", "IHome");
 					}
 					distanceX = moveLenX - (x2 - x1);
 					// distanceY = moveLenY-(y1-y2); //相对于原来的位置移动的距离;
@@ -1860,7 +1860,7 @@
 						}
 					}
 					if(!isChangeable) {
-						return mui.alert("请解锁下侧墙壁", "优速Max");
+						return mui.alert("请解锁下侧墙壁", "IHome");
 					}
 					distanceX = moveLenX - (x1 - x2);
 					// distanceY = moveLenY-(y1-y2); //相对于原来的位置移动的距离;
@@ -2088,7 +2088,7 @@
 			var distance = $("#popover-item-dis").val();
 
 			if(isNaN(line) || isNaN(distance) || !line || !distance) {
-				return mui.alert("不是合法的数据", "优速Max");
+				return mui.alert("不是合法的数据", "IHome");
 			}
 
 			var transform = self.mainFrame.getTransform(
@@ -2299,7 +2299,7 @@
 
 			//判断IWidth的数据合法性
 			if(IWidth<=0){
-				mui.alert("请输入有效值","优速Max");
+				mui.alert("请输入有效值","IHome");
 				return;
 			}
 			var tempScale = IWidth*100/width;
@@ -2579,7 +2579,7 @@
 			/* 针对PC和IOS做不同的上传处理，利用jquery.form.js来实现跨域上传图片，其实不需要分终端处理*/
 			if(typeof plus != "undefined") {
 				if(this.files.length <= 0) {
-					mui.alert("没有添加上传文件！", "优速Max");
+					mui.alert("没有添加上传文件！", "IHome");
 					return false;
 				}
 				var wt = plus.nativeUI.showWaiting();
@@ -2603,7 +2603,7 @@
 							self.resetImg(j.width, j.height);
 						} else {
 							wt.close();
-							mui.alert("网络错误", "优速Max");
+							mui.alert("网络错误", "IHome");
 						}
 
 					}
@@ -2648,11 +2648,11 @@
 							self.resetImg(j.width, j.height);
 						},
 						error: function(result) {
-							mui.alert("网络错误", "优速Max");
+							mui.alert("网络错误", "IHome");
 						}
 					});
 				} else {
-					mui.alert("没有添加上传文件", "优速Max");
+					mui.alert("没有添加上传文件", "IHome");
 				}
 			}
 		},
@@ -2775,7 +2775,7 @@
 					self.editImgPanel.hide();
 				},
 				error: function(e) {
-					mui.alert("网络错误", '优速Max');
+					mui.alert("网络错误", 'IHome');
 				}
 			});
 		},
@@ -2872,7 +2872,7 @@
 				this.drawMarkLine(markList[i]);
 			}
 			if(flag) {
-				mui.alert("保存成功", "优速Max");
+				mui.alert("保存成功", "IHome");
 			}
 		},
 		/**

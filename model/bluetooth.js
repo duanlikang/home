@@ -51,13 +51,13 @@
         plus.PluginBluetooth.scanStart(function(result) {
           if (result[0] == "NO") {
             self.stopScan();
-            mui.alert("蓝牙未开启！", "优速Max");
+            mui.alert("蓝牙未开启！", "IHome");
           } else {
             self.addItem(result[1],true);
           }
         }, function(result) {
           self.stopScan();
-          mui.alert("出错了："+result, "优速Max");
+          mui.alert("出错了："+result, "IHome");
         });
       }else{
         this.addItem("test",true);
@@ -158,7 +158,7 @@
       if(this.periName) {
         this.connect(this.periName);
       }else {
-        mui.alert("之前没有连接设备！", "优速Max");
+        mui.alert("之前没有连接设备！", "IHome");
       }
     },
     disconnect: function() {

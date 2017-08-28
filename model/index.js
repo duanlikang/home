@@ -11,8 +11,6 @@
     this.uploadProjectUrl = "http://usuapp.com/project/create";
     this.downloadProjectUrl = "http://usuapp.com/project/getAllProject";
     this.removeProjectUrl = "http://usuapp.com/project/remove";
-    this.getOpenIdUrl = "http://usuapp.com/user/getOpenId";
-    window.bindOpenIdUrl = "http://usuapp.com/user/bindOpenId";
     this.projectsDom = $("#project-list");
     this.mask = $("#index-mask");
     this.code = getUrlParam("code"); //微信对应的code
@@ -30,11 +28,6 @@
       this.showAllProjects();
       this.resetProjectCss();
       this.addEvent();
-
-      //根据是否是project界面返回
-      if(getUrlParam("type")==null){
-        this.getOpenId();
-      }
 
       // //首次进入显示项目展示页
       // var userInfo = this.user.hasLogin();
@@ -95,7 +88,7 @@
           };
           self.user.sendAjaxInfo.call(self, info, errorResult, 'json');
         } else {
-          mui.alert("请先登录", "优速Max");
+          mui.alert("请先登录", "IHome");
         }
         return false;
       };
@@ -232,7 +225,7 @@
         this.user.sendAjaxInfo.call(this, info, this.uploadProjectResult, "json");
       } else {
         /* mul.js 仿IOS原生组件 */
-        mui.alert("请先登录", '优速Max', function() {
+        mui.alert("请先登录", 'IHome', function() {
           self.loginSection.addClass("mui-active");
         });
       }
@@ -271,7 +264,7 @@
       self.mask.hide();
       if(data) {
         /* 覆盖已有项目，若没有则重新创建并保存 */
-        mui.alert("下载成功", '优速Max', function() {
+        mui.alert("下载成功", 'IHome', function() {
           var projects = self.getStorage(self.storageName);
           for(var i = 0, len = data.length; i < len; i++) {
             if(data[i].description && data[i].description != '{}') {
@@ -295,7 +288,7 @@
           self.resetProjectCss();
         });
       } else {
-        mui.alert("登录已过期，请重新登录", '优速Max');
+        mui.alert("登录已过期，请重新登录", 'IHome');
       }
     },
     /**
@@ -308,16 +301,16 @@
       if(data) {
         switch(data.info) {
           case "wrongToken":
-            mui.alert("登录已过期，请重新登录", '优速Max');
+            mui.alert("登录已过期，请重新登录", 'IHome');
             self.storage.removeItem("user");
             self.storage.addClass("mui-active");
             break;
           case "success":
-            mui.alert("上传成功", '优速Max');
+            mui.alert("上传成功", 'IHome');
             break;
         }
       } else {
-        mui.alert("网络出错，请重新尝试", '优速Max');
+        mui.alert("网络出错，请重新尝试", 'IHome');
       }
     },
     /**
@@ -399,7 +392,7 @@
 
         this.user.sendAjaxInfo.call(this, info, this.showCloudProjectResult);
       } else {
-        mui.alert("请先登录", '优速Max', function() {
+        mui.alert("请先登录", 'IHome', function() {
           self.loginSection.addClass("mui-active");
         });
       }
@@ -430,7 +423,7 @@
         };
         this.user.sendAjaxInfo.call(this, info, this.deleteCloudProjectResult);
       } else {
-        mui.alert("请先登录", '优速Max', function() {
+        mui.alert("请先登录", 'IHome', function() {
           self.cloudList.hide();
           self.mask.hide();
           self.loginSection.addClass("mui-active");
@@ -446,17 +439,17 @@
       if(data) {
         switch(data.info) {
           case "wrongToken":
-            mui.alert("登录已过期，请重新登录", '优速Max');
+            mui.alert("登录已过期，请重新登录", 'IHome');
             self.storage.removeItem("user");
             self.storage.addClass("mui-active");
             break;
           case "overdue":
-            mui.alert("登录已过期，请重新登录", '优速Max');
+            mui.alert("登录已过期，请重新登录", 'IHome');
             self.storage.removeItem("user");
             self.storage.addClass("mui-active");
             break;
           case "notExist":
-            mui.alert("项目不存在", '优速Max');
+            mui.alert("项目不存在", 'IHome');
             break;
           case "success":
             self.curCloudDeleteProejctDom.remove();
@@ -464,7 +457,7 @@
             break;
         }
       } else {
-        mui.alert("网络出错，请重新尝试", '优速Max');
+        mui.alert("网络出错，请重新尝试", 'IHome');
       }
     },
     /**
@@ -495,7 +488,7 @@
         self.mask.show();
         self.cloudList.show();
       } else {
-        mui.alert("登录已过期，请重新登录", '优速Max');
+        mui.alert("登录已过期，请重新登录", 'IHome');
       }
     },
     /**
@@ -592,7 +585,7 @@
       this.projectsDom.html(dom);
       projects.forEach(function(proId) {
 
-        //判断是否是本人的项目(Delete)
+        //判断是否是本人的项目()
         var project = self.getStorage(proId);
         if(typeof project == "string") {
           project = JSON.parse(project);
@@ -677,7 +670,7 @@
                 this.loginSection.removeClass("mui-active");
               } else {
 
-                mui.alert("请先登录", '优速Max');
+                mui.alert("请先登录", 'IHome');
               }
               break;
             case "hide-user-reg":
@@ -768,24 +761,24 @@
               case "nullPara":
                 self.regVerifyBtn.attr("disabled", false);
                 self.forgetVerifyBtn.attr("disabled", false);
-                mui.alert("请输入手机号", '优速Max');
+                mui.alert("请输入手机号", 'IHome');
                 break;
               case "wrongFormat":
                 self.regVerifyBtn.attr("disabled", false);
                 self.forgetVerifyBtn.attr("disabled", false);
-                mui.alert("请输入正确的手机号", '优速Max');
+                mui.alert("请输入正确的手机号", 'IHome');
                 break;
               case "tooFast":
                 self.regVerifyBtn.attr("disabled", false);
                 self.forgetVerifyBtn.attr("disabled", false);
-                mui.alert("请等待一定时间再获取", '优速Max');
+                mui.alert("请等待一定时间再获取", 'IHome');
                 break;
               default:
                 timer = setInterval(counter, 1000); //定时器限制验证码获取时间间隔
                 break;
             }
           } else {
-            mui.alert("网络出错，请重新尝试", '优速Max');
+            mui.alert("网络出错，请重新尝试", 'IHome');
           }
 
           function counter() {
@@ -823,13 +816,13 @@
           if(data) {
             switch(data.info) {
               case "noUser":
-                mui.alert("您输入的用户不存在", '优速Max');
+                mui.alert("您输入的用户不存在", 'IHome');
                 break;
               case "wrongPwd":
-                mui.alert("密码不正确", '优速Max');
+                mui.alert("密码不正确", 'IHome');
                 break;
               case "nullPara":
-                mui.alert("信息不完整", '优速Max');
+                mui.alert("信息不完整", 'IHome');
                 break;
               case "success":
 
@@ -850,7 +843,7 @@
                   //客户端需验证设备号是否匹配
                   var uuid = plus.device.uuid;
                   if(uuid !== data.uuid) {
-                    mui.alert("尊敬的用户，为保证您的项目信息安全，此账号只可在初次注册的设备上使用。", "优速Max");
+                    mui.alert("尊敬的用户，为保证您的项目信息安全，此账号只可在初次注册的设备上使用。", "IHome");
                     return;
                   }
                 } else {
@@ -859,7 +852,7 @@
                   if(self.openId == "") {
                     self.loginSection.removeClass("mui-active");
                     var btn = ["确定"];
-                    mui.confirm("您的账号尚未绑定微信号,将与您授权的微信号进行绑定。", "优速Max", btn, function(e) {
+                    mui.confirm("您的账号尚未绑定微信号,将与您授权的微信号进行绑定。", "IHome", btn, function(e) {
                       if(e.index == 0) {
                         var info = {
                           url: window.bindOpenIdUrl,
@@ -875,7 +868,7 @@
                       }
                     });
                   } else if(self.openId !== window.openId) {
-                    mui.alert("您的微信号与该账号不匹配,请更换账号！", "优速Max");
+                    mui.alert("您的微信号与该账号不匹配,请更换账号！", "IHome");
                   } else {
                     self.loginSection.removeClass("mui-active");
                     if(self.configueTime(self.deadTimeStamp)) {
@@ -889,7 +882,7 @@
                 break;
             }
           } else {
-            mui.alert("网络出错，请重新尝试", '优速Max');
+            mui.alert("网络出错，请重新尝试", 'IHome');
           }
         },
         /*
@@ -900,7 +893,7 @@
           if(data) {
             switch(data.info) {
               case "success":
-                mui.alert("绑定成功！", "优速Max", function() {
+                mui.alert("绑定成功！", "IHome", function() {
                   if(self.configueTime(self.deadTimeStamp)) {
                     self.parent.showAllProjects();
                   } else {
@@ -909,14 +902,14 @@
                 });
                 break;
               case "openIdHasBind":
-                mui.alert("该微信号已经绑定过账号,请更换账号!", "优速Max")
+                mui.alert("该微信号已经绑定过账号,请更换账号!", "IHome")
                 break;
               case "fail":
-                mui.alert("绑定失败", "优速Max");
+                mui.alert("绑定失败", "IHome");
                 break;
             }
           } else {
-            mui.alert("网络出错，请重新尝试", "优速Max");
+            mui.alert("网络出错，请重新尝试", "IHome");
           }
         },
         /* 改为手机号注册,加上唯一设备号*/
@@ -948,11 +941,11 @@
           if(introNo != "") {
             info.data["introNo"] = introNo;
           } else {
-            mui.alert("请输入邀请码", "优速Max");
+            mui.alert("请输入邀请码", "IHome");
           }
 
           if(key == "") {
-            mui.alert("请输入激活码", "优速Max");
+            mui.alert("请输入激活码", "IHome");
           } else {
             info.data["key"] = key;
           }
@@ -966,30 +959,30 @@
           if(data) {
             switch(data.info) {
               case "wrongFormat":
-                mui.alert("数据格式不正确", '优速Max');
+                mui.alert("数据格式不正确", 'IHome');
                 break;
               case "usernameHasExisted":
-                mui.alert("用户名已经存在", '优速Max');
+                mui.alert("用户名已经存在", 'IHome');
                 break;
               case "phoneHasExisted":
-                mui.alert("手机号已经被注册", '优速Max');
+                mui.alert("手机号已经被注册", 'IHome');
                 break;
               case "notMatch":
-                mui.alert("验证码错误", '优速Max');
+                mui.alert("验证码错误", 'IHome');
                 break;
               case "nullPara":
-                mui.alert("信息不完整", '优速Max');
+                mui.alert("信息不完整", 'IHome');
                 break;
               case "keyNotExist":
-                mui.alert("激活码不存在", "优速Max");
+                mui.alert("激活码不存在", "IHome");
                 break;
               case "keyUsed":
-                mui.alert("激活码已使用", "优速Max");
+                mui.alert("激活码已使用", "IHome");
                 break;
               case "success":
                 self.userNameLabel.html(self.username);
                 self.regBtn.attr("disabled", true);
-                mui.alert("注册成功,欢迎您的加入", '优速Max', function() {
+                mui.alert("注册成功,欢迎您的加入", 'IHome', function() {
 
                   //发送请求绑定微信号
                   var info = {
@@ -1006,7 +999,7 @@
                 break;
             }
           } else {
-            mui.alert("网络出错，请重新尝试", '优速Max');
+            mui.alert("网络出错，请重新尝试", 'IHome');
           }
         },
         bindOpenIdResultOnRegister: function(data, self) {
@@ -1014,7 +1007,7 @@
             if(data) {
               switch(data.info) {
                 case "success":
-                  mui.alert("与该微信号绑定成功！", "优速Max", function() {
+                  mui.alert("与该微信号绑定成功！", "IHome", function() {
                         //跳转到登录
                         setTimeout(function() {
                               var info = {
@@ -1033,14 +1026,14 @@
             });
             break;
           case "openIdHasBind":
-            mui.alert("该微信号已经绑定过账号", "优速Max")
+            mui.alert("该微信号已经绑定过账号", "IHome")
             break;
           case "fail":
-            mui.alert("绑定失败", "优速Max");
+            mui.alert("绑定失败", "IHome");
             break;
         }
       } else {
-        mui.alert("网络出错，请重新尝试", "优速Max");
+        mui.alert("网络出错，请重新尝试", "IHome");
       }
     },
     forgetPassword: function() {
@@ -1063,7 +1056,7 @@
       if(data) {
         switch(data.info) {
           case "success":
-            mui.alert("密码修改成功!", "优速Max", function() {
+            mui.alert("密码修改成功!", "IHome", function() {
               self.forgetSection.removeClass("mui-active");
               self.loginSection.addClass("mui-active");
             });
@@ -1071,7 +1064,7 @@
             break;
         }
       } else {
-        mui.alert("网络出错，请重新尝试", '优速Max');
+        mui.alert("网络出错，请重新尝试", 'IHome');
       }
     },
 
@@ -1112,7 +1105,7 @@
      * 试用期结束后，进行处理
      */
     handleConfigue: function() {
-      mui.alert("试用期结束，请购买", '优速Max', function() {
+      mui.alert("试用期结束，请购买", 'IHome', function() {
         mui.openWindow({
           url: "pay.html",
         });
