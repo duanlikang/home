@@ -31,7 +31,7 @@ public class CoreConfig extends JFinalConfig {
 	}
 
 	public void configPlugin(Plugins me) {
-		MongodbPlugin mongodbPlugin = new MongodbPlugin("plan");
+		MongodbPlugin mongodbPlugin = new MongodbPlugin("115.28.53.9",27017,"plan");
 		me.add(mongodbPlugin);
 		EhCachePlugin ehCachePlugin = new EhCachePlugin();
 		me.add(ehCachePlugin);
