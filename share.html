@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>USU</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/jquery.Jcrop.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="UTF-8">
+   		var old_back = mui.back;
+		mui.back = function(){
+		  var btn = ["确定","取消"];
+		  mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
+		    if(e.index==0){
+		    	//执行mui封装好的窗口关闭逻辑；
+		    	old_back();
+		    }
+		  });
+		}
+		
+      	mui.init({
+      		beforeback: function(){
+				//获得列表界面的webview
+				if(typeof plus !="undefined"){
+					mui.plusReady(function(){
+						var index = plus.webview.getWebviewById("project.html");
+						//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+						mui.fire(index,'refresh2');
+					});
+				}
+				//返回true，继续页面关闭逻辑
+				return true;
+			}
+      	});
+
+    </script>
+    <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+	<link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8"/>
+	<link rel="stylesheet" href="css/edit.css" type="text/css" charset="utf-8"/>
+	<link rel="stylesheet" href="css/share.css" type="text/css" charset="utf-8"/>
+	
+</head>
+<body>
+	<header id="header">
+		<div class="nvbt iback mui-action-back"></div>
+		<div class="nvtt">优速</div>
+		<div class="nvuser ihelp" id="ihelp"></div>	
+	</header>
+	<div id="container">
+		<div class="share-content">
+			
+			<div class="share-title" style="">项目总览</div>
+			<div class="share-line"></div>
+			<svg width="960" height="640" id="SVG" class="share-svg">
+				<g id="svg-background" transform="translate(0,0) scale(1)"></g>
+				<g id="svg-g" width="100%" height="100%" transform="translate(0,0) scale(1)"></g>
+			</svg>
+			
+			<ul class="share-room-list" id="share-room-list">
+			</ul>
+			<div class="share-url" id="share-url"></div>
+		</div>
+		
+	</div>
+	
+	<script type="text/javascript" src="js/hammer.js"></script>
+	<script type="text/javascript" src="js/propagating.js"></script>
+	<script type="text/javascript" src="js/jquery.Jcrop.min.js"></script>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="model/util.js"></script>
+	<script type="text/javascript" src="data/svgData.js"></script>
+	<script type="text/javascript" src="model/room.js"></script>
+	<script type="text/javascript" src="model/wallWindow.js"></script>
+	<script type="text/javascript" src="model/arbiRoom.js"></script>
+	<script type="text/javascript" src="model/arbitraryRoom.js"></script>
+	<script type="text/javascript" src="model/bluetoothRoom.js"></script>
+	<script type="text/javascript" src="model/mainFrame.js"></script>
+	<script type="text/javascript" src="model/roomPoints.js"></script>
+	<script type="text/javascript" src="model/item.js"></script>
+	<script type="text/javascript" src="model/side.js"></script>
+	<script>
+		var winWidth = $(window).width(); //当前可视区域的宽和高
+		var winHeight = $(window).height();
+		var projectId = getUrlParam("id");
+		var data = {
+			project_id: projectId,
+		}
+		$.ajax({
+			type: "post",
+			url: shareToNetUrl,
+			dataType: "json",
+			data: data,
+			success: function(data) {
+				if (data.info == "success") {
+					var data = data.description;
+					showCreatedProject(data);
+					$("#share-url").html("<span>长按复制链接：</span>http://usuapp.com/share.html"+location.search);
+				}else{
+					alert("获取失败");
+				}
+			},
+			error: function(e) {
+				alert("获取失败");
+			}
+		});
+		function showCreatedProject(info){
+			info = JSON.parse(info);
+			var svg_g = document.getElementById("svg-g");
+			svg_g.setAttribute("transform",info.svgData.attrs.transform);
+			var roomList = info.room;  //获取房间列表
+			
+			var minX = 100000;
+			var minY = 100000;
+			var maxX = 0;
+			var maxY = 0;
+			
+			for(var i=0,len=roomList.length;i<len;i++){
+				var roomId = []; //此变量用来存储room的id，为了再次绑定事件
+				var subSvgId = []; //此变量用来存储item的Id和info，为了再次绑定事件
+				/* 跳过数组的第一个null元素 */
+				if(roomList[i]!=null){
+					var svgDom = createRoomDetail(roomList,i);
+					showSingleRoom(svgDom, roomList[i]);
+					var roomDom = document.createElementNS('http://www.w3.org/2000/svg',"g");
+					var roomAttrs = roomList[i].svgData.attrs;
+					var roomId = "";
+					for(var k in roomAttrs){
+						if(k=="id"){
+							roomId = roomAttrs[k];
+						}
+						roomDom.setAttribute(k,roomAttrs[k]);
+					}
+
+	  				var items = roomList[i].child;
+	  				for(var j=0,len2=items.length;j<len2;j++){
+						
+	  					if(items[j].svgData.name=="g"&&items[j].svgData.unique){
+	  						var itemInfo = new SubSvgList(items[j].svgData.unique);
+	  						var subElement = showRoomItem(items[j].svgData.attrs,itemInfo);	
+	  						
+	  					}else if(items[j].svgData.name=="g"&&items[j].svgData.attrs["data-type"]){
+
+	  						var subElement = showRoomLineInfo(items[j].svgData);
+	  					}else{
+	  						if(items[j].svgData.name=="circle"){
+	  							var circleX = items[j].svgData.attrs["cx"];
+	  							var circleY = items[j].svgData.attrs["cy"];
+	  							var transform = roomAttrs["transform"].split(" ");
+	  							var translate = transform[0].match(/(-|\+)?[\d]+,(-|\+)?[\d]+/)[0].split(",");
+	  							var tmpX = parseInt(circleX)+parseInt(translate[0]);
+	  							var tmpY = parseInt(circleY)+parseInt(translate[1]);
+	  							if(tmpX>maxX){
+	  								maxX = tmpX;
+	  							}
+	  							if(tmpX<minX){
+	  								minX = tmpX;
+	  							}
+	  							if(tmpY>maxY){
+	  								maxY = tmpY;
+	  							}
+	  							if(tmpY<minY){
+	  								minY = tmpY;
+	  							}
+	  						}
+	  						var subElement = resetSVG(items[j].svgData.name,items[j].svgData.attrs);
+	  					}
+	  					roomDom.appendChild(subElement);
+	  				}
+	  				svg_g.appendChild(roomDom);
+				}
+			}
+			
+			var scale = Math.min(1,720/(maxX-minX),420/(maxY-minY));
+			var transform = svg_g.getAttribute("transform").split(" ");
+	  		var translate = transform[0].match(/(-|\+)?[\d]+,(-|\+)?[\d]+/)[0].split(",");
+			svg_g.setAttribute("transform","translate("+((-minX)*scale+80)+","+((-minY)*scale+70)+") scale("+scale.toFixed(2)+")");
+		}
+		/**
+		 * 展示房间墙壁的长度信息
+		 * @param {Object} item
+		 */
+		function showRoomLineInfo(item){
+			var element = document.createElementNS('http://www.w3.org/2000/svg', item.name);
+			element.setAttribute("data-type",item.attrs["data-type"]);
+			var child = item.child;
+			for(var i=0,len = child.length;i<len;i++){
+//				if(child[i].svgData.attrs["font-size"]){
+//					// 调整总图的字体大小
+//					child[i].svgData.attrs["font-size"] = "12px";
+//					child[i].svgData.attrs["transform"] = "translate("+child[i].svgData.attrs["x"]/2+","+child[i].svgData.attrs["y"]/2+") scale(0.5)";
+//				}
+				var subElement = resetSVG(child[i].svgData.name,child[i].svgData.attrs);
+				if(child[i].svgData.name=="text"){
+					subElement.textContent = child[i].svgData.textContent;
+				}
+				element.appendChild(subElement);
+			}
+			return element;
+		}
+		
+		/**
+		 * 加载已经保存的项目的子元素
+		 * @param {Object} attrs
+		 * @param {Object} itemInfo
+		 */
+		function showRoomItem(attrs,itemInfo) {
+			var element = document.createElementNS('http://www.w3.org/2000/svg', "g");
+				
+			for(var key in attrs){
+				element.setAttribute(key, attrs[key]);
+			}
+
+			var subArray = itemInfo.child;
+			if(subArray){
+				for (var i = 0, len = subArray.length; i < len; i++) {
+					var subElement = resetSVG(subArray[i].name, subArray[i].attrs);
+					var subChild = subArray[i].child;
+					if(subChild){
+						for(var j = 0,childLen=subChild.length;j<childLen;j++){
+							var childEle = resetSVG(subChild[j].name,subChild[j].attrs);
+							subElement.appendChild(childEle);
+						}
+					}
+					
+					element.appendChild(subElement);
+				}
+			}
+			var opacity = document.createElementNS('http://www.w3.org/2000/svg', "polygon");
+			opacity.setAttribute("points", "0,0 "+attrs.width+",0 "+attrs.width+","+attrs.height+" 0,"+attrs.height);
+			opacity.setAttribute("fill", "white");
+			opacity.setAttribute("fill-opacity", "0");
+			opacity.setAttribute("stroke-width", "10");
+			opacity.setAttribute("stroke", "#cccccc");
+			opacity.setAttribute("stroke-opacity", "0");
+			element.appendChild(opacity);
+			return element;
+		}
+		
+		function createRoomDetail(svgData,num){
+			var child = svgData[num].child;
+			var roundLength = 0.00;
+			var area = 0.00;
+			var itemDom = '<div class="share-bottom">'+
+				'<ul class="share-bottom-list">';
+			var dom = '<li class="share-li">'+
+					'<div class="share-line"></div>'+
+					'<div class="share-left">'+
+						'<div class="share-room-title">办公室</div>';
+			for(var i=0,len = child.length;i<len;i++){
+				if(child[i].svgData.name=="line"){
+					var lineX1 = child[i].svgData.attrs.x1;
+					var lineY1 = child[i].svgData.attrs.y1;
+					var lineX2 = child[i].svgData.attrs.x2;
+					var lineY2 = child[i].svgData.attrs.y2;;
+					var length = (Math.sqrt((lineX1 - lineX2) * (lineX1 - lineX2) + (lineY1 - lineY2) * (lineY1 - lineY2)) / 100).toFixed(2);
+					roundLength += parseFloat(length);
+					dom += '<div class="share-room-length"><label>墙壁：</label><span>'+length+'米</span></div>';
+				}
+				if(child[i].svgData.name == "polygon"){
+					var points = child[i].svgData.attrs["points"].split(" ");
+					area = getArea(points);
+				}
+				if(child[i].svgData.name=="g"){
+						if(child[i].svgData.unique&&child[i].svgData.unique=="door"){
+							itemDom += '<li>'+
+								'<div class="share-subLine"></div>'+
+								'<div class="share-icon"><img src="img/usu/sofa.png"/></div>'+
+								'<div class="share-icon-name">门</div>'+
+								'<div class="share-img"><img src="img/60x60.gif" /></div>'+
+								'<div class="share-text">这个是门</div>'+
+							'</li>';
+						}else if(child[i].svgData.unique&&child[i].svgData.unique=="door2"){
+							itemDom += '<li>'+
+								'<div class="share-subLine"></div>'+
+								'<div class="share-icon"><img src="img/usu/sofa.png"/></div>'+
+								'<div class="share-icon-name">窗</div>'+
+								'<div class="share-img"><img src="img/60x60.gif" /></div>'+
+								'<div class="share-text">这个是窗</div>'+
+							'</li>';
+						}else if(child[i].svgData.unique){
+							if(svgData[num].itemInfo){
+								var itemInfo = svgData[num].itemInfo[child[i].svgData.attrs.id];
+								if(itemInfo){
+									itemDom += '<li>'+
+										'<div class="share-subLine"></div>'+
+										'<div class="share-icon"><img src="img/usu/sofa.png"/></div>'+
+										'<div class="share-icon-name">'+itemInfo.itemName+'</div>'+
+										'<div class="share-img"><img src="img/60x60.gif" /></div>';
+									
+									if(itemInfo.text){
+										itemDom += '<div class="share-text">'+itemInfo.text+'</div>';
+									}
+									itemDom +='</li>';
+								}else{
+									itemDom += '<li>'+
+										'<div class="share-subLine"></div>'+
+										'<div class="share-icon"><img src="img/usu/sofa.png"/></div>'+
+										'<div class="share-icon-name">'+child[i].svgData.attrs.itemName+'</div>'+
+										'<div class="share-img"><img src="img/60x60.gif" /></div>'+
+										'<div class="share-text">这个是窗</div>'+
+									'</li>';
+								}
+							}
+						}
+					}
+			}
+			dom += '<div class="share-room-length"><label>面积：</label><span>'+area+'平方米</span></div>'+
+					'<div class="share-room-length"><label>周长：</label><span>'+roundLength.toFixed(2)+'米</span></div>'+
+					'</div>'+
+					'<div class="share-right">'+
+						'<svg width="600" height="400">'+
+							'<g id="share-room-'+num+'" width="100%" height="100%" transform="translate(0,0) scale(1)"></g>'+
+						'</svg>'+
+					'</div>'+itemDom+
+					'</ul>'+
+					'</div>'+
+				'</li>';
+			$("#share-room-list").append(dom);
+			return document.getElementById("share-room-"+num);
+		}
+		
+		function getArea(tmpPoints){
+			var points = [];
+			var len = tmpPoints.length;
+			if(len<3){
+				return 0.00;
+			}
+			for(var i=0;i<len;i++){
+				points[i] = {};
+				var tpoints = tmpPoints[i].split(",");
+				points[i].x = parseInt(tpoints[0]);
+				points[i].y = parseInt(tpoints[1]);
+			}
+			
+			var s = points[0].y * (points[len-1].x - points[1].x);
+   		 	for(var i = 1; i < len; i++){
+      			s += points[i].y * (points[i-1].x - points[(i+1)%len].x);
+      		}
+    		return (Math.abs(s/2.0)/10000).toFixed(2);
+		}
+		
+		function showSingleRoom(svgDom,svgData){
+			var minX = 100000;
+			var minY = 100000;
+			var maxX = 0;
+			var maxY = 0;
+			var room = svgData;
+			var roomDom = document.createElementNS('http://www.w3.org/2000/svg',"g");
+			var roomAttrs = room.svgData.attrs;
+			var roomId = "";
+			for (var k in roomAttrs) {
+				if (k == "id") {
+					roomId = roomAttrs[k];
+				}
+				roomDom.setAttribute(k, roomAttrs[k]);
+			}
+			var items = room.child;
+			for (var j = 0, len2 = items.length; j < len2; j++) {
+				if (items[j].svgData.name == "g" && items[j].svgData.unique) {
+					var itemInfo = new SubSvgList(items[j].svgData.unique);
+					var subElement = showRoomItem(items[j].svgData.attrs, itemInfo);
+			
+				} else if (items[j].svgData.name == "g" && items[j].svgData.attrs["data-type"]) {
+					var subElement = showRoomLineInfo(items[j].svgData);
+				} else {
+					if (items[j].svgData.name == "circle") {
+						var circleX = items[j].svgData.attrs["cx"];
+						var circleY = items[j].svgData.attrs["cy"];
+						var transform = roomAttrs["transform"].split(" ");
+						var translate = transform[0].match(/(-|\+)?[\d]+,(-|\+)?[\d]+/)[0].split(",");
+						var tmpX = parseInt(circleX) + parseInt(translate[0]);
+						var tmpY = parseInt(circleY) + parseInt(translate[1]);
+						if (tmpX > maxX) {
+							maxX = tmpX;
+						}
+						if (tmpX < minX) {
+							minX = tmpX;
+						}
+						if (tmpY > maxY) {
+							maxY = tmpY;
+						}
+						if (tmpY < minY) {
+							minY = tmpY;
+						}
+					}
+					var subElement = resetSVG(items[j].svgData.name, items[j].svgData.attrs);
+				}
+				roomDom.appendChild(subElement);
+			}
+			svgDom.appendChild(roomDom);
+			var scale = Math.min(1,400/(maxX-minX),280/(maxY-minY));
+			svgDom.setAttribute("transform","translate("+(-minX*scale+100)+","+(-minY*scale+60)+") scale("+scale.toFixed(2)+")");
+		}
+	</script>
+</body>
+</html>
