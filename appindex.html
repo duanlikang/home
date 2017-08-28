@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IHome</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    
+    <script type="text/javascript" charset="utf-8">
+        mui.init({
+            id: "index.html"
+        });
+    </script>
+    <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<body>
+    <div class="header-fix"></div>
+    <header id="header">
+        <div id="back" class="nvbt iconfig" data-target="head-event"></div>
+        <div class="nvtt">IHome</div>
+        <div class="nvuser iuser" id="userBtn" data-target="head-event"></div>
+        <div class="nvuser ihelp" id="ihelp"></div>	
+    </header>
+    <div id="content" class="content">
+        <div class="content-head">
+            <div class="nvbt sort" data-target="content-event" id="project-cloud">
+                云数据 <img class="sort-icon" src="img/usu/ic_xx@2x.png"></img>
+            </div>
+            <div class="nvtt nv-search">
+                <div class="search">
+                    <label class="search-label" id="search-label"></label>
+                </div>
+            </div>
+            <div class="nvuser refresh" data-target="content-event"></div>
+            <div class="nvuser download" data-target="content-event" id="project-download"></div>
+        </div>
+        <ul id="project-list" class="project-list">
+            <li class="project-li">
+                <div class="project-li-img background-grid" id="create-new">
+                    <div class="project-li-add">
+                        <div class="project-li-icon">
+                            <span>新建平面图</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-li-info project-new-name">
+                    <div class="project-li-name project-li-new">新平面图</div>
+                    <div class="project-li-date"></div>
+                </div>
+            </li>
+        </ul>
+        <ul class="cloud-list" id="cloud-list">
+            <li class="cloud-li">
+                <div class="cloud-title">云端项目</div>
+                <div class="cloud-close cloud-delete" data-type="close"><img src="img/usu/close.png" alt="" /></div>
+            </li>
+            
+        </ul>
+        <div id="user-info">
+            <section id="tabbar-with-login" class="mui-control-content user-content">
+                <header class="add-room-header">
+                    <div class="nvbt iback" id="hide-user-login"></div>
+                    <div class="nvtt">我的账户 - 登录</div>
+                    <div class="nvuser"></div>
+                    <div class="nvuser ihelp"></div>
+                </header>
+                <div class="login-panel">
+                    <div class="login-list">
+                        <input type="text" id="login-user-value" placeholder="手机号"/>
+                    </div>
+                    <div class="login-list">
+                        <input type="password" id="login-password-value" placeholder="请输入密码"/>
+                    </div>
+                    <div class="login-list">
+                        <a class="mui-tab-item login-to-reg" href="#tabbar-with-reg">注册</a>
+                        <a class="mui-tab-item login-forget" href="#tabbar-with-forget">忘记密码？</a>
+                    </div>
+                    <div class="login-list">
+                        <button type="button" id="login-btn" class="mui-btn login-btn">登 录</button>
+                    </div>
+                </div> 
+            </section>
+            <section id="tabbar-with-reg" class="mui-control-content user-content">
+                <header class="add-room-header">
+                    <div class="nvbt iback" id="hide-user-reg"></div>
+                    <div class="nvtt">我的账户 - 注册</div>
+                    <div class="nvuser"></div>
+                    <div class="nvuser ihelp"></div>
+                </header>
+                <div class="login-panel reg-panel">
+                    <div class="login-list">
+                        <input type="number" id="reg-phone-value" placeholder="手机号"/>
+                    </div>
+                    <div class="login-list">
+                        <input type="password" id="reg-password-value" placeholder="请输入密码"/>
+                    </div>
+                    <div class="login-list">
+                        <input type="text" id="reg-activateNumber-value" placeholder="激活码（必填）"/>
+                    </div>
+                    <div class="login-list">
+                        <input type="text" id="reg-introNumber-value" placeholder="邀请码（必填）"/>
+                    </div>
+                    <div class="login-list">
+                        <div class="reg-verify"><input type="number" id="reg-verify-value" placeholder="验证码"/></div>
+                        <div class="reg-verify-btn"><button type="button" id="reg-verify-get" class="mui-btn reg-verify-get">获取验证码</button></div>
+                    </div>
+                    <div class="login-list">
+                        <button type="button" class="mui-btn login-btn reg-btn" id="reg-btn">注 册</button>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+            </section>
+            <section id="tabbar-with-info" class="mui-control-content user-content">
+                <header class="add-room-header">
+                    <div class="nvbt iback" id="hide-user-info"></div>
+                    <div class="nvtt">我的账户</div>
+                    <div class="nvuser"></div>
+                    <div class="nvuser ihelp"></div>
+                </header>
+                <div class="login-panel info-panel">
+                    <div class="user-head">
+                        <div class="user-img"><img src="img/usu/defHead@3x.png" alt="" /></div>
+                        <div class="user-name">
+                            <div class="user-email" id="user-name">用户名</div>
+                            <div class="user-state">已登录</div>
+                        </div>
+                    </div>
+                    <div class="user-info-list">
+                        <div class="user-line">
+                            <div class="user-info-label user-info-space"><span>到期日期</span></div>
+                            <!-- <div class="user-info-value"><a id="user-pay">购买</a></div> -->
+                            <div id="user-info-deadtime" class="user-info-value">2016.2.2</div>
+                        </div>
+                    </div>
+                    <div class="user-info-list user-signout">
+                        <a href="javascript:;" id="user-logout-btn">退出登录</a>
+                    </div>
+                </div>
+            </section>
+            <section id="tabbar-with-forget" class="mui-control-content user-content">
+                <header class="add-room-header">
+                    <div class="nvbt iback" id="hide-user-forget"></div>
+                    <div class="nvtt">我的账户 - 找回密码</div>
+                    <div class="nvuser"></div>
+                    <div class="nvuser ihelp"></div>
+                </header>
+                <div class="login-panel forget-panel">
+                    <div class="login-list">
+                        <input type="text" id="forget-phone-value" placeholder="手机号"/>
+                    </div>
+                    
+                    <div class="login-list">
+                        <div class="reg-verify"><input type="number" id="forget-verify-value" placeholder="验证码"/></div>
+                        <div class="reg-verify-btn"><button type="button" id="forget-verify-get" class="mui-btn reg-verify-get">获取验证码</button></div>
+                    </div>
+                    <div class="login-list">
+                        <input type="password" id="forget-password-value" placeholder="请输入新密码"/>
+                    </div>
+                    <div class="login-list">
+                        <button type="button" class="mui-btn login-btn reg-btn" id="forget-btn">修 改</button>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+            </section>
+            <section class="mask index-mask" id="index-mask">
+                <div class="mask-img"><img src="img/loading.gif" alt="" /></div>
+            </section>
+        </div>
+    </div>
+
+    <div style="clear: all;"></div>
+    <script type="text/javascript" src="js/md5.js" ></script>
+    <script type="text/javascript" src="data/svgData.js" ></script>
+    <script type="text/javascript" src="model/util.js" ></script>
+    <script type="text/javascript" src="js/hammer.min.js"></script>
+    <script type="text/javascript" src="model/index.js"></script>
+    <script>
+        var indexPage = new Index();
+    </script>
+    
+</body>
+</html>

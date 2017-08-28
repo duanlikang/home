@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>支付</title>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+    	<script src="js/mui.min.js"></script>
+   	 	<link href="css/mui.min.css" rel="stylesheet"/>
+   	 	<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<header id="header">
+			<div id="back" class="nvbt iback mui-action-back"></div>
+			<div class="nvtt"><span class="head-title">优速Max</span></div>
+			<div class="nvuser"></div>
+			<div class="nvuser ihelp" id="ihelp"></div>	
+		</header>
+		<section id="pay-box-section">
+			<div class="pay-panel mui-content" id="pay-list">
+				<div class="pay-option" data-type="1" data-amount="0.01">
+					<div class="pay-img" data-type="1" data-amount="0.01"><img src="img/usu/pay1.png" alt="购买一年的服务" data-type="1" data-amount="0.01" /></div>
+					<div class="pay-title" data-type="1" data-amount="0.01">年费 <span id="pay-type1-price">570元/年</span>  <span id="pay-type1-price-discount" style="display:none;">399元/年</span></div>
+					<div class="pay-desc" data-type="1" data-amount="0.01">购买后可享受软件内所有图库，所有功能以及云存储服务，有效期一年。</div>
+				</div>
+
+				<div class="pay-option" data-type="2" data-amount="0.01">
+					<div class="pay-img" data-type="2" data-amount="0.01"><img src="img/usu/pay2.png" alt="智能测距仪" data-type="2" data-amount="0.01"/></div>
+					<div class="pay-title" data-type="2" data-amount="0.01">智能测距仪 398元/个</div>
+					<div class="pay-desc" data-type="2" data-amount="0.01">购买后与软件配合使用,做方案更方便，更迅速，省去记笔记的烦恼。</div>
+				</div>
+				<div class="pay-option" data-type="3" data-amount="0.01">
+					<div class="pay-img" data-type="3" data-amount="0.01"><img src="img/usu/pay3.png" alt="超值套餐" data-type="3" data-amount="0.01"/></div>
+					<div class="pay-title" data-type="3" data-amount="0.01">超值套餐 1200元</div>
+					<div class="pay-desc" data-type="3" data-amount="0.01">包含第一年年费+一个智能测距仪+第二年起每年年费7折优惠(399元/年)，倾情推荐！</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="pay-user-section hidden " id="pay-user-section">	
+			<div class="pay-user-info-list">
+					<div style="text-align:center;">
+						<h2>收件信息</h2>
+					</div>
+
+					  <div class="pay-user-info">
+                        <div class="pay-user-info-label"><span>所在地区:</span></div>
+                        <div class="pay-user-info-value"><input type="text" id="pay-user-info-address-rough" placeholder="请选择省市区" /></div>
+                    </div>
+                    <div class="pay-user-info">
+                        <div class="pay-user-info-label"><span>详细地址:</span></div>
+                        <div class="pay-user-info-value"><textarea type="text" id="pay-user-info-address-detail" placeholder="建议你如实填写详细收货地址,例如街道名称，门牌号码，楼层和房间号等信息" ></textarea></div>
+                    </div>
+
+                    <div class="pay-user-info">
+                        <div class="pay-user-info-label"><span>收件人:</span></div>
+                        <div class="pay-user-info-value"><input type="text" id="pay-user-info-name" placeholder="名称长度不能超过20字符" /></div>
+                    </div>
+                     <div class="pay-user-info">
+                        <div class="pay-user-info-label"><span>手机号:</span></div>
+                        <div class="pay-user-info-value"><input type="number" id="pay-user-info-phone" placeholder="请确保手机号能使用" /></div>
+                    </div>
+                  
+                    <div class="pay-user-info">
+           				<div class="pay-user-finish-btn" id="pay-user-save-btn">保存<div>
+           			</div>
+          </div>
+		</section>
+	
+		<section class="pay-way-section hidden" id="pay-way-section">
+			<div class="pay-way-section-title">请选择支付方式</div>
+			<div class="pay-way-list">
+				<div class="pay-way-btn" id="pay-way-alipay">
+					支付宝
+				</div>
+				
+				<div class="pay-way-btn" id="pay-way-wxpay">
+					微信
+				</div>
+			</div>
+		</section>
+		<section class="mask index-mask" id="index-mask">
+			<div class="mask-img"><img src="img/loading.gif" alt="" /></div>
+		</section>
+
+
+		<script type="text/javascript" src="js/md5.js"></script>
+		<script type="text/javascript" src="js/hammer.min.js"></script>
+		<script type="text/javascript" src="js/cityJson.js"></script>
+		<script type="text/javascript" src="js/citySet.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+		<script type="text/javascript" src="model/util.js"></script>
+		<script type="text/javascript" src="model/index.js"></script>
+		<script type="text/javascript" src="model/pay.js"></script>
+		<script>
+			var pay = new Pay();
+		</script>
+	</body>
+</html>

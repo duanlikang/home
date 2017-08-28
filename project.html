@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>IHome</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<body>
+	<header id="header">
+		<div id="back" class="nvbt iback mui-action-back"></div>
+		<div class="nvtt">IHome</div>
+		<div class="nvuser"></div>
+		<div class="nvuser ihelp" id="ihelp"></div>	
+	</header>
+	<div class="mui-content" id="mui-content">
+		<div id="tabbar-with-edit" class="mui-control-content mui-active">
+			<div class="project-view">
+					<div class="project-view-img" id="create-project">
+						<svg  width="100%" height="100%" id="svg-view">
+							<g id="snap-parent" transform="translate(0,0) scale(0.4)">
+								<g id="snap"></g>
+							</g>
+						</svg>
+					</div>
+					<div class="project-li-info">
+						<div class="project-li-name project-li-view">视图预览</div>
+						<div class="project-li-date"></div>
+					</div>
+			</div>
+			<div class="project-detail" id="project-detail-show">
+				<div class="detail-title"><label>项目名</label><span id="detail-title-span"></span></div>
+				<div class="detail-desc"><label>作者</label><span id="detail-author-span"></span></div>
+				<div class="detail-desc"><label>联系电话</label><span id="detail-phone-span"></span></div>
+				<div class="detail-desc"><label>联系人</label><span id="detail-user-span"></span></div>
+				<div class="detail-desc"><label>邮箱</label><span id="detail-email-span"></span></div>
+				<div class="detail-desc"><label>地址</label><span id="detail-address-span"></span></div>
+				<div class="detail-desc"><label>创建时间</label><span id="detail-time-span"></span></div>
+				<div class="detail-desc detail-text"><textarea placeholder="备注信息" disabled="disabled" id="detail-text-span"></textarea></div>
+				<div class="detail-edit-btn"><button class="mui-btn" id="detail-btn-edit">编辑</button></div>
+			</div>
+			<div class="project-detail project-detail-edit" id="project-detail-edit">
+				<div class="detail-title"><input type="text" id="detail-title-finish" placeholder="项目名"/></div>
+				<div class="detail-desc"><input type="text" id="detail-phone-finish" placeholder="联系电话"/></div>
+				<div class="detail-desc"><input type="text" id="detail-user-finish" placeholder="联系人"/></div>
+				<div class="detail-desc"><input type="text" id="detail-email-finish" placeholder="邮箱"/></div>
+				<div class="detail-desc"><input type="text" id="detail-address-finish" placeholder="地址"/></div>
+				<div class="detail-desc detail-text"><textarea id="detail-text-finish" placeholder="备注信息"></textarea></div>
+				<div class="detail-desc-btn"><button class="mui-btn project-edit-btn" id="detail-btn-finish">保存</button></div>
+			</div>
+			<div class="project-btn"><button type="button" id="open-edit" class="mui-btn project-edit-btn">进入编辑</button></div>
+			<div style="clear:both;margin-bottom: 20px;"></div>
+		</div>
+		<div id="tabbar-with-output" class="mui-control-content">
+			<div class="output-option" id="output-email-type1">
+				<div class="output-img"><img src="img/usu/file@3x.png" alt="获取文件" /></div>
+				<div class="output-title">获取整体方案（布局图+报价单）</div>
+				<div class="output-desc">您可以通过电子邮件，以PDF形式获取您的布局图和报价单。</div>
+			</div>	
+			<div class="output-option" id="output-email-type2">
+				<div class="output-img"><img src="img/usu/file@3x.png" alt="获取文件" /></div>
+				<div class="output-title">获取房间布局图</div>
+				<div class="output-desc">您可以通过电子邮件，以PDF形式获取您的布局图。</div>
+			</div>	
+			<div style="clear:both;margin-bottom: 20px;">
+			</div>
+		</div>
+	
+		
+		<div id="tabbar-with-statistics" class="mui-control-content">
+			<div class="project-data-list proejct-data-title">房间</div>
+			<div class="project-data-view">
+				<div class="project-data-svg">
+					<svg width="500" height="360">
+						<g id="svg-statistics" width="100%" height="100%" transform="translate(0,0) scale(1)"></g>
+					</svg>
+				</div>
+			</div>
+		</div>
+		<div id="tabbar-with-data" class="mui-control-content">
+			
+		</div>
+	</div>
+	<section class="mask index-mask" id="index-mask">
+		<div class="mask-img"><img src="img/loading.gif" alt="" /></div>
+	</section>
+	<section>
+		<div id="popover-price" class="mui-popover">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<input type="text" class="popover-input" id="popover-price-input" placeholder="输入价格，例：500" />
+				</li>
+				<li class="mui-table-view-cell">
+					<button class="popover-btn" id="popover-price-btn">确定</button>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<footer class="mui-bar footer">
+		<ul class="footer-ul" id="footer">
+			<li class="footer-list project-footer" data-target="#tabbar-with-edit">
+				<a class="mui-tab-item" href="#tabbar-with-edit">
+					<div class="footer-img">
+						<img class="footer-normal" src="img/usu/edit.svg" alt="" />
+					</div>
+					<div class="footer-text">
+						<span>编辑</span>
+					</div>
+				</a>
+			</li>
+			
+			<li class="footer-list project-footer">
+				<a class="mui-tab-item" href="#tabbar-with-output">
+					<div class="footer-img">
+						<img class="footer-add" src="img/usu/output.svg" alt="" />
+					</div>
+					<div class="footer-text">
+						<span>输出</span>
+					</div>
+				</a>
+			</li>
+			<li class="footer-list project-footer">
+				<a class="mui-tab-item mui-active" href="#tabbar-with-statistics">
+				<div class="footer-img">
+					<img class="footer-edit" src="img/usu/dollar.svg" alt="" />
+				</div>
+				<div class="footer-text">
+					<span>估算</span>
+				</div>
+				</a>
+			</li>
+		</ul>
+	</footer>
+
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="model/util.js"></script>
+	<script type="text/javascript" src="data/svgData.js"></script>
+	<script type="text/javascript" src="js/hammer.min.js"></script>
+	<script type="text/javascript" src="js/propagating.js"></script>
+	<script type="text/javascript" src="js/box.js"></script>
+	<script type="text/javascript" src="model/index.js"></script>
+	<script type="text/javascript" src="model/project.js"></script>
+	<script type="text/javascript">
+		(function(){
+			var light = new LightBox();
+			var project = new Project();
+		})();
+	</script>
+</body>
+</html>
